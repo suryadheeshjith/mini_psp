@@ -4,4 +4,6 @@
 /miniPSP/Data/*.npy
 /miniPSP/Data/*.txt
 /miniPSP/logs
+/miniPSP/Model_test
+miniPSP/models/__pycache__
 miniPSP/utils/__pycache__
