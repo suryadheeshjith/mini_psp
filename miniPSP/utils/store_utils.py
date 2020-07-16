@@ -1,6 +1,5 @@
 import os.path as osp
 
-
 def save_details(args,input_shape,target_shape):
 
     save_path = args.output_fol+"/"+"data_details.txt"

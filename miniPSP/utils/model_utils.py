@@ -3,7 +3,6 @@ from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras import Model
 
-
 def conv_block(X,filters,block):
 
     b = 'block_'+str(block)+'_'

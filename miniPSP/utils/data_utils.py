@@ -6,9 +6,6 @@ import os.path as osp
 from .store_utils import save_details
 from .tiling_utils import createTiles, selectTiles
 
-
-
-
 def normalise_inputs(Inputs):
     Inputs = np.array(Inputs)
     nInputs = np.zeros_like(Inputs)
