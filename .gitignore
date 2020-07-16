@@ -1,0 +1,5 @@
+.DS_Store
+/miniPSP/Data/Bands/*.tif
+/miniPSP/Data/Targets/*.tif
+/miniPSP/Data/*.npy
+/miniPSP/Data/*.txt
