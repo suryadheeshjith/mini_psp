@@ -1,7 +1,6 @@
 import numpy as np
 from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
-#import itertools
+
 
 def get_iou(target,prediction):
     intersection = np.logical_and(target, prediction)
@@ -65,57 +64,7 @@ def evaluate(target,prediction,n_classes):
     return acc,iou,f1
 
 
-
-def plot_confusion_matrix(cm, classes,
-                              normalize=False,
-                              title='Confusion matrix',
-                              cmap=plt.cm.Reds):
-
-        if normalize:
-            cm = cm.astype('float') / cm.sum(axis=0)
-            cm = np.round(cm,decimals=10)
-            print("Normalized confusion matrix")
-        else:
-            print('Confusion matrix, without normalization')
-
-        plt.imshow(cm, interpolation='nearest', cmap=cmap)
-        plt.title(title)
-        plt.colorbar()
-        tick_marks = np.arange(len(classes))
-        plt.xticks(tick_marks, classes, rotation=45)
-        plt.yticks(tick_marks, classes)
-        print(cm)
-
-        thresh = cm.max(axis=0)
-        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-            plt.text(j, i, cm[i, j],
-            horizontalalignment="center",
-            color="red" if cm[i, j] >= thresh[j] else "black")
-
-        plt.tight_layout()
-        plt.ylabel('True label')
-        plt.xlabel('Predicted label')
-
-
-def confusion_matrix(class_names,y_test,y_pred):
-
+def confusion_matrix(y_test,y_pred):
 
     cm = confusion_matrix(y_test.argmax(axis=1),y_pred.argmax(axis=1))
-    fig_size = plt.rcParams["figure.figsize"]
-    fig_size[0] = 10
-    fig_size[1] = 8
-    plt.rcParams["figure.figsize"] = fig_size
-    # Compute confusion matrix
-    np.set_printoptions(precision=2)
-
-    # Plot non-normalized confusion matrix
-    plt.figure()
-    plot_confusion_matrix(cm, classes=class_names,
-                          title='Confusion matrix, without normalization')
-
-    # Plot normalized confusion matrix
-    plt.figure()
-    plot_confusion_matrix(cm, classes=class_names, normalize=True,
-                          title='Normalized confusion matrix')
-
-    plt.show()
+    return cm
