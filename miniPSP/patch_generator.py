@@ -18,16 +18,17 @@ def parse_args():
     parser.add_argument('-tp',"--threshp", dest="percentage_ones", type = float, default=0.25, help="Percentage ones in each tile. Enter value between 0 - 1 Default = 0.25")
     parser.add_argument('-tr',"--threshr", dest="thresh", type = int, default=8, help="Threshold parameter while selecting tiles. Enter value between 0 - 10 Default = 8")
     parser.add_argument('-str',"--strides", dest="strides", type = int, default=0, help="Strides taken for tiling to obtain overlapping patches. Default = 0 (for non-overlapping patches)")
+    parser.add_argument('-tt',"--traintest",action="store_true", dest="train_test", default=False, help="Save separate files for training and testing. Default = False")
     parser.add_argument('-s',"--save",action="store_true", dest="save_details", default=False, help="Save details of patches generated. Default = False")
     args = parser.parse_args()
     return args
 
 
-def main():
+def generate():
 
     # Logger
     logger = get_logger()
-    
+
     # Parse Args
     args = parse_args()
 
@@ -39,4 +40,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    generate()
