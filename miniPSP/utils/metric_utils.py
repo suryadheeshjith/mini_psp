@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.metrics import confusion_matrix
+from sklearn import metrics
 
 
 def get_iou(target,prediction):
@@ -66,5 +66,5 @@ def evaluate(target,prediction,n_classes):
 
 def confusion_matrix(y_test,y_pred):
 
-    cm = confusion_matrix(y_test.argmax(axis=1),y_pred.argmax(axis=1))
+    cm = metrics.confusion_matrix(y_test.argmax(axis=1),y_pred.argmax(axis=1))
     return cm
