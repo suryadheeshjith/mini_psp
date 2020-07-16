@@ -6,6 +6,7 @@ import argparse
 import json
 
 from utils.data_utils import save_npy
+from utils.logger_utils import get_logger
 
 
 def parse_args():
@@ -24,12 +25,15 @@ def parse_args():
 
 def main():
 
-    #Parse Args
+    # Logger
+    logger = get_logger()
+    
+    # Parse Args
     args = parse_args()
 
-    print("Command Details : ")
-    print(json.dumps(vars(args), indent=4))
-    
+    logger.info("Command Details : ")
+    logger.info(json.dumps(vars(args), indent=4))
+
     #Save files
     save_npy(args)
 

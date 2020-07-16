@@ -5,6 +5,7 @@ import os.path as osp
 
 from .store_utils import save_details
 from .tiling_utils import createTiles, selectTiles
+from utils.logger_utils import get_logger
 
 def normalise_inputs(Inputs):
     Inputs = np.array(Inputs)
@@ -38,6 +39,8 @@ def get_multi_io(ls, w, h,overlap=False):
 
 def save_npy(args):
 
+    # Logger
+    logger = get_logger()
 
     # Getting input file names
     band_files = []
@@ -50,21 +53,21 @@ def save_npy(args):
         if(band_file.endswith(".tif")):
             band_files.append(band_dir+"/"+band_file)
         else:
-            print("File not considered : "+band_file + " in "+band_dir)
+            logger.info("File not considered : "+band_file + " in "+band_dir)
 
     for mask_file in os.listdir(target_dir):
         if(mask_file.endswith(".tif")):
             target_files.append(target_dir+"/"+mask_file)
         else:
-            print("File not considered : "+mask_file + " in "+target_dir)
+            logger.info("File not considered : "+mask_file + " in "+target_dir)
 
 
     if(not band_files):
-        print("No relevant files in Band directory")
+        logger.info("No relevant files in Band directory")
         exit(0)
 
     if(not target_files):
-        print("No relevant files in Target directory")
+        logger.info("No relevant files in Target directory")
         exit(0)
 
 
@@ -90,6 +93,8 @@ def save_npy(args):
 
 
     #Saving input
+    if not osp.exists(args.output_fol):
+        os.makedirs(args.output_fol)
     input_path = args.output_fol+"/"+'input'
     target_path = args.output_fol+"/"+'output'
     np.save(input_path,Inputs)
@@ -97,5 +102,5 @@ def save_npy(args):
 
 
     if(args.save_details):
-        print("Saving data details to data_details.txt in "+args.output_fol)
+        logger.info("Saving data details to data_details.txt in "+args.output_fol)
         save_details(args,np.array(Inputs).shape,np.array(Output).shape)

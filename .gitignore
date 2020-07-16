@@ -3,3 +3,5 @@
 /miniPSP/Data/Targets/*.tif
 /miniPSP/Data/*.npy
 /miniPSP/Data/*.txt
+/miniPSP/logs
+miniPSP/utils/__pycache__
