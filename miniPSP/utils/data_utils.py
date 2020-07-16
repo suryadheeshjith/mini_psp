@@ -3,7 +3,6 @@ import rasterio
 import os
 import os.path as osp
 from sklearn.model_selection import train_test_split
-from sklearn.utils import shuffle
 
 from .store_utils import save_details
 from .tiling_utils import createTiles, selectTiles
@@ -133,4 +132,5 @@ def round_outputs(y_pred):
 
         y_pred[i] = [0]*5
         y_pred[i][idx] = 1
+    y_pred = np.reshape(y_pred,(-1,256,256,5))
     return y_pred
