@@ -2,10 +2,13 @@ import numpy as np
 import rasterio
 import os
 import os.path as osp
+from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 
 from .store_utils import save_details
 from .tiling_utils import createTiles, selectTiles
 from utils.logger_utils import get_logger
+
 
 def normalise_inputs(Inputs):
     Inputs = np.array(Inputs)
@@ -93,14 +96,41 @@ def save_npy(args):
 
 
     #Saving input
-    if not osp.exists(args.output_fol):
+    if(not osp.exists(args.output_fol)):
         os.makedirs(args.output_fol)
-    input_path = args.output_fol+"/"+'input'
-    target_path = args.output_fol+"/"+'output'
-    np.save(input_path,Inputs)
-    np.save(target_path,Output)
+
+    # Saving separate files for training and testing if required. (Can help avoid memory crashes)
+    if(args.train_test):
+        X_train, X_test, y_train, y_test = train_test_split(Inputs, Output, test_size=0.2, random_state=42)
+        np.save(args.output_fol+"/"+'input8_train.npy',X_train)
+        np.save(args.output_fol+"/"+'output8_train.npy',y_train)
+        np.save(args.output_fol+"/"+'input8_test.npy',X_test)
+        np.save(args.output_fol+"/"+'output8_test.npy',y_test)
+
+
+    else:
+        np.save(args.output_fol+"/"+'input',Inputs)
+        np.save(args.output_fol+"/"+'output',Output)
+
 
 
     if(args.save_details):
         logger.info("Saving data details to data_details.txt in "+args.output_fol)
         save_details(args,np.array(Inputs).shape,np.array(Output).shape)
+
+
+
+def round_outputs(y_pred):
+    y_pred = np.reshape(y_pred,(-1,5))
+    for i in range(y_pred.shape[0]):
+        tem = y_pred[i]
+        best=0
+        idx=-1
+        for j in range(5):
+            if(tem[j]>best):
+                best = tem[j]
+                idx=j
+
+        y_pred[i] = [0]*5
+        y_pred[i][idx] = 1
+    return y_pred
