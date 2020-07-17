@@ -33,7 +33,34 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+def get_model(model_name, input_shape, n_classes):
+    # PSP
+    if(model_name.lower()=='psp'):
+        logger.info("PSPNet model used")
+        lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=0.001,decay_steps=100000,decay_rate=0.96,staircase=True)
+        optimizer = SGD(learning_rate=lr_schedule, momentum=0.9, nesterov=False)
+        loss = 'categorical_crossentropy'
+        model = PSP_Net(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
 
+    # UNET
+    elif(model_name.lower()=='unet'):
+        logger.info("UNET model used")
+        optimizer = 'adam'
+        loss = 'categorical_crossentropy'
+        model = UNET(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
+
+    # FCN
+    elif(model_name.lower()=='fcn'):
+        logger.info("FCN model used")
+        optimizer = 'adam'
+        loss = 'categorical_crossentropy'
+        model = FCN(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
+
+    else:
+        logger.info("Enter valid model name")
+        exit(0)
+
+    return model
 
 def train(args):
 
@@ -70,37 +97,15 @@ def train(args):
     early = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=4)
     callbacks_list = [checkpoint]
 
-    # PSP
-    if(model_name.lower()=='psp'):
-        print("PSPNet model used")
-        lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=0.001,decay_steps=100000,decay_rate=0.96,staircase=True)
-        optimizer = SGD(learning_rate=lr_schedule, momentum=0.9, nesterov=False)
-        loss = 'categorical_crossentropy'
-        model = PSP_Net(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
-
-    # UNET
-    elif(model_name.lower()=='unet'):
-        print("UNET model used")
-        optimizer = 'adam'
-        loss = 'categorical_crossentropy'
-        model = UNET(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
-
-    # FCN
-    elif(model_name.lower()=='fcn'):
-        print("FCN model used")
-        optimizer = 'adam'
-        loss = 'categorical_crossentropy'
-        model = FCN(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
-
-    else:
-        print("Enter valid model name")
-        exit(0)
+    model = get_model(model_name, input_shape, n_classes)
 
     # Logging model.summary()
     tmp_smry = StringIO()
     model.summary(print_fn=lambda x: tmp_smry.write(x + '\n'))
     summary = tmp_smry.getvalue()
     logger.info("Model Summary :\n {}".format(summary))
+
+    # Model fit
     history = model.fit(dataset[0], dataset[1], epochs=args.epochs, batch_size =args.batch_size,validation_split=0.2,callbacks=callbacks_list)
 
     # Save model JSON
