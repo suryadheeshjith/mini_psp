@@ -46,7 +46,14 @@ def train(args):
     x_dataset = np.load(input_npy)
     y_dataset = np.load(output_npy)
     dataset = [x_dataset, y_dataset]
-    dataset[1] = np.reshape(dataset[1],(-1,dataset[1].shape[1]*dataset[1].shape[2],5))
+
+    # Parameters
+    assert x_dataset.shape[:-1] == y_dataset.shape[:-1]
+    input_shape = x_dataset.shape[1:]
+    n_classes = y_dataset.shape[-1]
+
+    # Reshape for training
+    dataset[1] = np.reshape(dataset[1],(-1,dataset[1].shape[1]*dataset[1].shape[2],n_classes))
 
     # Shuffle
     dataset[0], dataset[1] = shuffle(dataset[0],dataset[1],random_state=42)
@@ -69,21 +76,21 @@ def train(args):
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=0.001,decay_steps=100000,decay_rate=0.96,staircase=True)
         optimizer = SGD(learning_rate=lr_schedule, momentum=0.9, nesterov=False)
         loss = 'categorical_crossentropy'
-        model = PSP_Net(input_shape=(256,256,4), optimizer = optimizer, loss = loss, n_classes=5)
+        model = PSP_Net(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
 
     # UNET
     elif(model_name.lower()=='unet'):
         print("UNET model used")
         optimizer = 'adam'
         loss = 'categorical_crossentropy'
-        model = UNET(input_shape=(256,256,4), optimizer = optimizer, loss = loss, n_classes=5)
+        model = UNET(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
 
     # FCN
     elif(model_name.lower()=='fcn'):
         print("FCN model used")
         optimizer = 'adam'
         loss = 'categorical_crossentropy'
-        model = FCN(input_shape=(256,256,4), optimizer = optimizer, loss = loss, n_classes=5)
+        model = FCN(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
 
     else:
         print("Enter valid model name")

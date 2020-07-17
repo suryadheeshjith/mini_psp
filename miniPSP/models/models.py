@@ -96,7 +96,6 @@ def FCN(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'ca
     o2, o = crop(o2, o, img_input)
     o = Add()([o2, o])
     o = Conv2DTranspose(n_classes, kernel_size=(2, 2),  strides=(2, 2), use_bias=False)(o)
-    # o = Reshape((256*256, n_classes),input_shape=(256,256, n_classes))(o)
     o = Reshape((input_shape[0]*input_shape[1], n_classes),
             input_shape=(input_shape[0], input_shape[1], n_classes))(o)
     o = Activation("softmax")(o)
