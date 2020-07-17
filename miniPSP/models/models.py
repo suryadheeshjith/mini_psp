@@ -50,6 +50,7 @@ def UNET(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'c
 
     return model
 
+
 def FCN(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
 
 
