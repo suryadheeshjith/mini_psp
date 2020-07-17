@@ -183,6 +183,15 @@ An example command would be
 
 ```python3 test.py -mj Model_test/model.json -i Data/input.npy -o Data/output.npy -mw Model_test/model_final_weights.h5 -tt -pl```
 
+## Additional Note
+
+For prediction and subsequent generation of masks by the model, you must first generate patches for the entire image without any sampling or thresholding. This can be done by command
+
+```python3 patch_generator.py -i Data -o Data -s -tp 0```
+
+Then, to generate the masks
+
+```python3 test.py -mj Model_test/model.json -i Data/input.npy -o Data/output.npy -mw Model_test/model_final_weights.h5 -s```
 
 
 ##### Contributors
