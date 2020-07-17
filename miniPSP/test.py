@@ -8,12 +8,16 @@ from tensorflow.keras.optimizers import *
 from tensorflow.keras.models import load_model,model_from_json
 import numpy as np
 import argparse
+import os
 import os.path as osp
+from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 
 from utils.data_utils import round_outputs
 from utils.logger_utils import get_logger
-from utils.metric_utils import evaluate, confusion_matrix
+from utils.metric_utils import evaluate, conf_matrix
 from utils.plot_utils import plot_confusion_matrix
+from utils.tiling_utils import save_masks
 
 def parse_args():
 
@@ -24,7 +28,9 @@ def parse_args():
     parser.add_argument('-mw',"--mwpath",dest="mwpath", help="Model weights file path.", required = True)
     parser.add_argument('-mn',"--mname",dest="mname", help="Model name. Options : psp, unet or fcn. Default = psp",default = 'psp')
     parser.add_argument('-tt',"--traintest",action="store_true", dest="train_test", default=False, help="Use Train Test split. Default = False")
+    parser.add_argument('-e',"--eval",action="store_true", dest="eval", default=False, help="Evaluate the model and log the results. Default = False")
     parser.add_argument('-pl',"--plot",action="store_true", dest="plot_conf", default=False, help="Plot confusion matrix. Default = False")
+    parser.add_argument('-s',"--save",action="store_true", dest="save_masks", default=False, help="Save masks for each class. Default = False")
     args = parser.parse_args()
     return args
 
@@ -56,6 +62,8 @@ def test(args, class_names):
     X_test = np.load(input_npy)
     y_test = np.load(output_npy)
 
+    X_test, y_test = shuffle(X_test,y_test,random_state=42)
+
     if(args.train_test):
         X_train, X_test, y_train, y_test = train_test_split(X_test, y_test, test_size=0.2, random_state=42)
 
@@ -68,26 +76,41 @@ def test(args, class_names):
     y_pred = round_outputs(y_pred)
 
     # Evaluate model
-    acc,iou,f1 = evaluate(y_test,y_pred,n_classes=len(class_names))
-    logger.info("Class\t\tAccuracy\n")
-    for k in acc.keys():
-        logger.info(k,"\t\t",acc[k])
+    if(args.eval):
+        acc,iou,f1 = evaluate(y_test,y_pred,n_classes=len(class_names))
+        logger.info("Class\t\tAccuracy")
+        for k in acc.keys():
+            logger.info("{}\t\t{}".format(k,acc[k]))
 
-    logger.info("Class\t\IoU\n")
-    for k in acc.keys():
-        logger.info(k,"\t\t",acc[k])
+        logger.info("\n\n")
+        logger.info("Class\t\tIoU")
+        for k in iou.keys():
+            logger.info("{}\t\t{}".format(k,iou[k]))
 
-    logger.info("Class\t\F1-Score\n")
-    for k in acc.keys():
-        logger.info(k,"\t\t",acc[k])
+        logger.info("\n\n")
+        logger.info("Class\t\tF1-Score")
+        for k in f1.keys():
+            logger.info("{}\t\t{}".format(k,f1[k]))
 
-    cm = confusion_matrix(y_test,y_pred)
-    logger.info("Confusion matrix : ")
-    logger.info(cm)
 
     if(args.plot_conf):
-        plot_confusion_matrix(cm,class_names,args.model_path)
+        cm = conf_matrix(y_test,y_pred)
+        logger.info("\nConfusion matrix : ")
+        logger.info(cm)
+        plot_confusion_matrix(cm,class_names,model_path)
 
+
+    if(args.save_masks):
+        sample_path = None
+        sam_path = 'Data/Targets'
+        for i in os.listdir(sam_path):
+            if(i.endswith("tif")):
+                sample_path = osp.join(sam_path,i)
+                break
+        if(not sample_path):
+            print("No valid reference path!")
+            exit(0)
+        save_masks(sample_path, model_path, y_pred)
 
 if __name__ == '__main__':
 
