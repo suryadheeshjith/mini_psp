@@ -112,7 +112,7 @@ def test(args, class_names):
 
     # Save masks
     if(args.save_masks):
-        save_masks(odel_path, y_pred)
+        save_masks(model_path, y_pred)
 
 if __name__ == '__main__':
 
