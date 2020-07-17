@@ -12,7 +12,7 @@ from utils.logger_utils import get_logger
 def parse_args():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-d',"--tdim",dest="tdim", default=256,type = int, help="Dimensions of the Tile size. Default = 256")
+    parser.add_argument('-d',"--tdim",dest="tdim", default=256,type = int, help="Dimension of the patch size (Height/Width). Default = 256")
     parser.add_argument('-i',"--inpf",dest="input_fol", help="Input Folder containing the input tiff files.",required = True)
     parser.add_argument('-o',"--outf",dest="output_fol", help="Output folder to store the training .npy files.",required = True)
     parser.add_argument('-tp',"--threshp", dest="percentage_ones", type = float, default=0.25, help="Percentage ones in each tile. Enter value between 0 - 1 Default = 0.25")
@@ -25,6 +25,29 @@ def parse_args():
 
 
 def generate():
+
+    """
+
+    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+    INPUT : 1. Satellite images
+            2. Target Masks
+            3. Dimensions of patch
+
+    OUTPUT : Two npy files called input.npy and output.npy (stored in the output directory) corresponding to the patches generated from the satellite images
+             and the target masks.
+    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    This function takes the inputs from the arguments passed in command line. The satellite image and masks directory is taken as input
+    and patches are generated for training the model. The files are to be present in the Data/Bands and Data/Targets directories. (Place the satellite images in
+    Bands and the target masks in Targets.)
+
+    ├── miniPSP
+    │   ├── Data
+    │   │   ├── Bands
+    │___│___├── Targets
+
+
+    """
 
     # Logger
     logger = get_logger()
