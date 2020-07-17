@@ -21,14 +21,17 @@ Each pixel is classified into one of the following classes :
 
 The proposed study makes use of multispectral satellite imagery collected by the Sentinel-2 mission. The data collected was of 16-bit 6 type, covering the study area, and four 10 m spatial resolution bands of Sentinel-2, i.e., B2 (490 nm), B3 (560 nm), B4 (665 nm) and B8 (842 nm) are considered. The input's dimensions are 256 x 256 x 4, which means we use a height and width of 256. Some examples are given below.
 
-<img src="figures/WaterbodiesImage.PNG" alt="Waterbodies Image" width =200>
-<img src="figures/Waterbodies.PNG" alt="Waterbodies Mask" width =200>
+<img src="figures/WaterbodiesImage.PNG" alt="Waterbodies Image" width =100> <img src="figures/Waterbodies.PNG" alt="Waterbodies Mask" width =100>
+<img src="figures/RoadsImage.PNG" alt="Roads Image" width =100> <img src="figures/Roads.PNG" alt="Roads Mask" width =100>
+<img src="figures/OpenlandImage.PNG" alt="Openland Image" width =100> <img src="figures/Openland.PNG" alt="Openland Mask" width =100>
 
 
 Apart from the PSPNet model, UNET and FCN models have also been implemented.
 
 
 ## Quick Start
+
+### Instal
 
 1. git clone the repository.
 
@@ -57,7 +60,8 @@ Required Packages :
 * logger==1.4
 
 
-The repository structure contains the Data folder where all the images are to be kept.
+#### Repository Structure
+
 
 
     ```
@@ -86,36 +90,96 @@ The repository structure contains the Data folder where all the images are to be
     └── requirements.txt
     ```
 
-We first generate patches for the input and mask tif files and then train our model.
+The Data folder contains the Bands and the Targets folders. The Bands folder should contain the satellite image tiff files and the Targets should contain the target masks for each class. Once all the files are in place, we crop our images into patches.
 
 
-### Running demo code
+### Patch Generation
 
-To generate patches, we run the [patch_generator.py]() file
+To generate patches, we run the [patch_generator.py]() file.
 
-```python3 Main.py -d Kad -p DefaultParameters.json```
+##### List of Command-line Parameters
 
-### List of Command-line Parameters
+* -h, --help : show this help message and exit
 
-* -h --help : List the parameters and their use.
+* -d, --tdim : Dimensions of the Tile size. Default = 256
 
-* -d --dataset : A dataset must be considered for learning. This parameter takes the dataset csv file name. This parameter **must** be passed.    
+* -i, --inpf : Input Folder containing the input tiff files. (Required)
 
-* -p --parameters : Model Parameters are passed using a json file. This parameter must be used to specify the name of json file. This parameter **must** be passed.  
+* -o, --outf : Output folder to store the training .npy files. (Required)
 
-* -i --ignore : Ignore the first column. (For some cases).  
-                Default = False
+* -tp, --threshp : Percentage ones in each tile. Enter value between 0 - 1 Default = 0.25
 
-* -r --randomsamp : Balance the dataset using random under sampling. (Use for imbalanced datasets).   
-                    Default = False
+* -tr, --threshr : Threshold parameter while selecting tiles. Enter value between 0 - 10 Default = 8
 
-* -v --parentvaluecols [ BETA ]: Addition of columns based on class distributions of parents of leaf nodes in the decision tree.    
-                                Default = False
+* -str, --strides : Strides taken for tiling to obtain overlapping patches. Default = 0 (for non-overlapping patches)
 
-* -c --cores [ BETA ]: Number of cores to be used during addition of columns (When -v is True).    
-                         Default = -1 (All cores)
+* -tt, --traintest : Save separate files for training and testing. Default = False
 
-To train the model
+* -s, --save : Save details of patches generated. Default = False
+
+
+An example command would be
+
+```python3 patch_generator.py -i Data -o Data -s```
+
+
+### Model Training
+
+Training the model will save a JSON file, a best weights and final weights file. Training is done by the [train.py]() file.
+
+##### List of Command-line Parameters
+
+* -h, --help : show this help message and exit
+
+* -i, --inp : Input npy file path. (Required)
+
+* -o, --out : Output npy file path. (Required)
+
+* -mp, --mpath : Model path to save all required files for testing. (Required)
+
+* -mn, --mname : Model name. Options : psp, unet or fcn. Default = psp
+
+* -e , --epochs : Number of epochs. Default = 50
+
+* -b, --batch : Batch size. Default = 8
+
+* -tt, --traintest : Use Train Test split. Default = False
+
+* -pl, --plot : Plot Accuracy and Loss graphs. Default = False
+
+
+
+An example command would be
+
+```python3 train.py -i Data/input.npy -o Data/output.npy -mp Model_test -tt -pl```
+
+### Model Testing
+
+Testing is done by the [test.py]() file.
+
+##### List of Command-line Parameters
+
+* -h, --help : show this help message and exit
+
+* -i, --inp : Input npy file path. (Required)
+
+* -o, --out : Output npy file path. (Required)
+
+* -mj, --mjpath : Model JSON file path. (Required)
+
+* -mw, --mwpath : Model weights file path. (Required)
+
+* -mn, --mname : Model name. Options : psp, unet or fcn. Default = psp
+
+* -tt, --traintest : Use Train Test split. Default = False
+
+* -pl, --plot : Plot confusion matrix. Default = False
+
+* -s, --save : Save masks for each class. Default = False
+
+An example command would be
+
+```python3 test.py -mj Model_test/model.json -i Data/input.npy -o Data/output.npy -mw Model_test/model_final_weights.h5 -tt -pl```
 
 
 
