@@ -3,7 +3,7 @@
 
 ## Introduction
 
-This is the official implementation of [Mini-PSPNet for Urban Land-Use/Land-Cover Classification of Remote Sensing images](). We perform semantic segmentation on the city of Bengaluru, Karnataka, India. Implementation is done in Python 3.6.10.
+This is the official implementation of [Mini-PSPNet for Urban Land-Use/Land-Cover Classification of Remote Sensing images](). We perform semantic segmentation on the city of Bengaluru, Karnataka, India and the implementation is done in Python 3.6.10.
 
 
 ## Details
@@ -41,6 +41,20 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
 3. Install the required packages from requirements.txt.
 
     ```pip install -r requirements.txt```
+
+
+Required Packages :
+
+* Python==3.6.10
+* numpy==1.18.1
+* argparse
+* scikit-learn==0.22.1
+* scipy==1.4.1
+* rasterio==1.1.5
+* matplotlib==3.2.1
+* json5==0.8.5
+* tensorflow==1.15.2
+* logger==1.4
 
 
 The repository structure contains the Data folder where all the images are to be kept.
