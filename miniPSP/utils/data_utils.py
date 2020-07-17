@@ -53,6 +53,9 @@ def get_input_file_names(inp_fol):
     Input file names are obtained here.
     """
 
+    # Logger
+    logger = get_logger()
+
     # Getting input file names
     band_files = []
     target_files = []

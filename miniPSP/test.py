@@ -101,6 +101,7 @@ def test(args, class_names):
 
     # Evaluate model
     if(args.eval):
+        logger.info("Logging evaluated metrics")
         log_eval(y_test,y_pred,n_classes=len(class_names))
 
     # Confusion matrix
@@ -112,6 +113,7 @@ def test(args, class_names):
 
     # Save masks
     if(args.save_masks):
+        logger.info("Saving masks")
         save_masks(model_path, y_pred)
 
 if __name__ == '__main__':
