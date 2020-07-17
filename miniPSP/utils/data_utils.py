@@ -10,6 +10,11 @@ from utils.logger_utils import get_logger
 
 
 def normalise_inputs(Inputs):
+
+    """
+    Normalising inputs across bands.
+    """
+
     Inputs = np.array(Inputs)
     nInputs = np.zeros_like(Inputs)
     np.divide(Inputs,np.max(Inputs,axis=(0,1,2),keepdims=True),out=nInputs,where=np.max(Inputs,axis=(0,1,2),keepdims=True)!=0)
@@ -17,6 +22,10 @@ def normalise_inputs(Inputs):
 
 
 def get_multi_io(ls, w, h,overlap=False):
+
+    """
+    Patches are given appropriate shape here.
+    """
 
     Tiles = []
     inputs = []
@@ -33,22 +42,22 @@ def get_multi_io(ls, w, h,overlap=False):
             input1[:, :, j] = Tiles[j][i]['data']
 
         inputs.append(input1)
-        input1 = np.zeros((w,h,len(ls))) # Hack
+        input1 = np.zeros((w,h,len(ls)))
 
     return inputs
 
 
+def get_input_file_names(inp_fol):
 
-def save_npy(args):
-
-    # Logger
-    logger = get_logger()
+    """
+    Input file names are obtained here.
+    """
 
     # Getting input file names
     band_files = []
     target_files = []
-    band_dir = args.input_fol +"/"+ "Bands"
-    target_dir = args.input_fol +"/"+ "Targets"
+    band_dir = inp_fol +"/"+ "Bands"
+    target_dir = inp_fol +"/"+ "Targets"
 
     # Storing file paths
     for band_file in os.listdir(band_dir):
@@ -72,6 +81,19 @@ def save_npy(args):
         logger.info("No relevant files in Target directory")
         exit(0)
 
+    return band_files, target_files
+
+def save_npy(args):
+
+    """
+    Npy files are saved here.
+    """
+
+    # Logger
+    logger = get_logger()
+
+    # Input file names
+    band_files, target_files = get_input_file_names(args.input_fol)
 
     width = args.tdim
     height = args.tdim
@@ -89,7 +111,7 @@ def save_npy(args):
     Inputs = normalise_inputs(Inputs)
 
 
-    # Thresholding
+    # Selecting patches
     if(args.thresh>0):
         Inputs,Output = selectTiles(Inputs,Output,args.percentage_ones,args.thresh)
 
@@ -120,6 +142,11 @@ def save_npy(args):
 
 
 def round_outputs(y_pred):
+
+    """
+    Rounding is done across bands. The most likelihood class is given a value of 1 and the rest 0.
+    """
+
     y_pred = np.reshape(y_pred,(-1,5))
     for i in range(y_pred.shape[0]):
         tem = y_pred[i]

@@ -8,6 +8,10 @@ import os.path as osp
 
 def createTiles(src: rasterio.DatasetReader, size_h, size_w, overlap=0):
 
+    """
+    Patches (Tiles) are created here
+    """
+
     if(overlap==0):
         num_tiles_w = src.width // size_w
         num_tiles_h = src.height // size_h
@@ -40,6 +44,10 @@ def createTiles(src: rasterio.DatasetReader, size_h, size_w, overlap=0):
 
 
 def selectTiles(tilesX, tilesY, percentage_ones,random_thresh):
+
+    """
+    Patches are selected here based on a threshold given and the percentage of true pixels (value 1 pixels) required in each patch.
+    """
 
     retX = []
     retY = []
@@ -82,6 +90,12 @@ def writeTIFF(data, out_file: str, height, width, crs, transform, windowI, windo
 
 
 def save_masks(save_path, y_pred):
+
+    """
+    Saving output prediction masks.
+    """
+
+    # A sample file used to provide various information to the predicted mask during save.
     sample_path = None
     sam_path = 'Data/Targets'
     for i in os.listdir(sam_path):
@@ -91,7 +105,7 @@ def save_masks(save_path, y_pred):
     if(not sample_path):
         print("No valid reference path!")
         exit(0)
-        
+
     with rasterio.open(sample_path) as src:
         input_crs = src.crs
         input_transform = src.transform
