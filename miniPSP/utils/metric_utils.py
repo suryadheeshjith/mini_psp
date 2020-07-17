@@ -64,7 +64,12 @@ def evaluate(target,prediction,n_classes):
     return acc,iou,f1
 
 
-def confusion_matrix(y_test,y_pred):
-
+def conf_matrix(y_test,y_pred):
+    y_pred = np.reshape(y_pred,(-1,5))
+    y_test = np.reshape(y_test,(-1,5))
+    added = np.sum(y_test,axis=1)
+    arr = np.where(added==2)
+    y_test2 = np.delete(y_test,arr[0],axis=0)
+    y_pred2 = np.delete(y_pred,arr[0],axis=0)
     cm = metrics.confusion_matrix(y_test.argmax(axis=1),y_pred.argmax(axis=1))
     return cm
