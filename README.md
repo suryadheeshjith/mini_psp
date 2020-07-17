@@ -175,13 +175,15 @@ Testing is done by the [test.py](https://github.com/suryadheeshjith/ISRO_Repo/bl
 
 * -tt, --traintest : Use Train Test split. Default = False
 
+* -e. --eval : Evaluate the model and log the results. Default = False
+
 * -pl, --plot : Plot confusion matrix. Default = False
 
 * -s, --save : Save masks for each class. Default = False
 
 An example command would be
 
-```python3 test.py -mj Model_test/model.json -i Data/input.npy -o Data/output.npy -mw Model_test/model_final_weights.h5 -tt -pl```
+```python3 test.py -mj Model_test/model.json -i Data/input.npy -o Data/output.npy -mw Model_test/model_final_weights.h5 -tt -e -pl```
 
 ## Additional Note
 
