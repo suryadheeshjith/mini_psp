@@ -33,7 +33,7 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
 
 ## Quick Start
 
-### Instal
+### Install
 
 1. git clone the repository.
 
@@ -97,7 +97,7 @@ The Data folder contains the Bands and the Targets folders. The Bands folder sho
 
 ### Patch Generation
 
-To generate patches, we run the [patch_generator.py]() file.
+To generate patches, we run the [patch_generator.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/patch_generator.py) file.
 
 ##### List of Command-line Parameters
 
@@ -127,7 +127,7 @@ An example command would be
 
 ### Model Training
 
-Training the model will save a JSON file, a best weights and final weights file. Training is done by the [train.py]() file.
+Training the model will save a JSON file, a best weights and final weights file. Training is done by the [train.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/train.py) file.
 
 ##### List of Command-line Parameters
 
@@ -157,7 +157,7 @@ An example command would be
 
 ### Model Testing
 
-Testing is done by the [test.py]() file.
+Testing is done by the [test.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/test.py) file.
 
 ##### List of Command-line Parameters
 
