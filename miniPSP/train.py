@@ -76,14 +76,14 @@ def train(args):
         print("UNET model used")
         optimizer = 'adam'
         loss = 'categorical_crossentropy'
-        model = UNET4(input_shape=(256,256,4), optimizer = optimizer, loss = loss, n_classes=5)
+        model = UNET(input_shape=(256,256,4), optimizer = optimizer, loss = loss, n_classes=5)
 
     # FCN
     elif(model_name.lower()=='fcn'):
         print("FCN model used")
         optimizer = 'adam'
         loss = 'categorical_crossentropy'
-        model = fcn_8(input_shape=(256,256,4), optimizer = optimizer, loss = loss, n_classes=5)
+        model = FCN(input_shape=(256,256,4), optimizer = optimizer, loss = loss, n_classes=5)
 
     else:
         print("Enter valid model name")

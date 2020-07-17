@@ -16,9 +16,9 @@ def PSP_Net(input_shape = (256, 256, 4), n_classes = 5, optimizer = 'adam', loss
     return model
 
 
-def UNET(input_size=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
+def UNET(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
 
-    inputs = Input(input_size)
+    inputs = Input(input_shape)
 
     #Encoder
     conv1 = Conv2D(64, 3, activation='relu',padding='same'  )(inputs)
@@ -40,8 +40,8 @@ def UNET(input_size=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'ca
     conv10 = Conv2D(n_classes, 1, padding="valid")(conv9)
     conv10 = BatchNormalization()(conv10)
     conv10 = Reshape(
-            (input_size[0]*input_size[1], n_classes),
-            input_shape=(input_size[0], input_size[1], n_classes))(conv10)
+            (input_shape[0]*input_shape[1], n_classes),
+            input_shape=(input_shape[0], input_shape[1], n_classes))(conv10)
     conv10 = Activation("softmax")(conv10)
 
     model = Model(inputs=inputs, outputs=conv10)
@@ -50,10 +50,10 @@ def UNET(input_size=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'ca
 
     return model
 
-def FCN(input_size=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
+def FCN(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
 
 
-    img_input = Input(input_size)
+    img_input = Input(input_shape)
     x = img_input
     levels = []
 
@@ -97,8 +97,8 @@ def FCN(input_size=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'cat
     o = Add()([o2, o])
     o = Conv2DTranspose(n_classes, kernel_size=(2, 2),  strides=(2, 2), use_bias=False)(o)
     # o = Reshape((256*256, n_classes),input_shape=(256,256, n_classes))(o)
-    o = Reshape((input_size[0]*input_size[1], n_classes),
-            input_shape=(input_size[0], input_size[1], n_classes))(o)
+    o = Reshape((input_shape[0]*input_shape[1], n_classes),
+            input_shape=(input_shape[0], input_shape[1], n_classes))(o)
     o = Activation("softmax")(o)
 
     model =  Model(img_input, o)
