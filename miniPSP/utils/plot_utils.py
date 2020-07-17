@@ -50,7 +50,7 @@ def confusion_matrix_helper(cm, classes,title='Confusion matrix',cmap=plt.cm.Red
     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
         plt.text(j, i, cm[i, j],
         horizontalalignment="center",
-        color="red" if cm[i, j] >= thresh[j] else "black")
+        color="white" if cm[i, j] >= thresh[j] else "black")
 
     plt.tight_layout()
     plt.ylabel('True label')
