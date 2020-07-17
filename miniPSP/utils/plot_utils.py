@@ -1,14 +1,13 @@
 import matplotlib.pyplot as plt
-#import itertools
+import numpy as np
+import itertools
 
 
 def plot_history(history,save_path):
-    """
-    plots the graph of accuracy and loss metrics
-    """
+
     #ACCURACY PLOT
-    plt.plot(history.history['accuracy'],color='orange',label = 'acc')
-    plt.plot(history.history['val_accuracy'],color='blue',label = 'val_acc')
+    plt.plot(history.history['acc'],color='orange',label = 'acc')
+    plt.plot(history.history['val_acc'],color='blue',label = 'val_acc')
 
     plt.title('model accuracy')
     plt.xlabel('epoch')
@@ -58,10 +57,7 @@ def plot_confusion_matrix(cm,class_names,save_path):
     fig_size[0] = 10
     fig_size[1] = 8
     plt.rcParams["figure.figsize"] = fig_size
-    # Compute confusion matrix
     np.set_printoptions(precision=2)
-
-    # Plot normalized confusion matrix
     plt.figure()
     confusion_matrix_helper(cm, classes=class_names, title='Normalized confusion matrix')
     plt.savefig(save_path+"/"+'confusion_matrix.png')
