@@ -1,6 +1,10 @@
 import os.path as osp
 from io import StringIO
 
+from .metric_utils import evaluate
+from .logger_utils import get_logger
+
+
 def save_details(args,input_shape,target_shape):
 
     save_path = args.output_fol+"/"+"data_details.txt"
@@ -29,12 +33,38 @@ def get_summary_string(model):
 
 def save_model(model, model_path):
 
+    # Logger
+    logger = get_logger()
+
     # Save model JSON
+    logger.info("Saving model json")
     model_json = model.to_json()
     save_json_path = osp.join(model_path,"model.json")
     with open(save_json_path, "w") as json_file:
         json_file.write(model_json)
 
     # Save final weights
+    logger.info("Saving model weights")
     save_weight_path = osp.join(model_path,"model_final_weights.h5")
     model.save_weights(save_weight_path)
+
+
+def log_eval(y_test,y_pred,n_classes):
+
+    # Logger
+    logger = get_logger()
+
+    acc,iou,f1 = evaluate(y_test,y_pred,n_classes)
+    logger.info("Class\t\tAccuracy")
+    for k in acc.keys():
+        logger.info("{}\t\t{}".format(k,acc[k]))
+
+    logger.info("\n\n")
+    logger.info("Class\t\tIoU")
+    for k in iou.keys():
+        logger.info("{}\t\t{}".format(k,iou[k]))
+
+    logger.info("\n\n")
+    logger.info("Class\t\tF1-Score")
+    for k in f1.keys():
+        logger.info("{}\t\t{}".format(k,f1[k]))

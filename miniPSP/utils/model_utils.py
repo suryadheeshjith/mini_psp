@@ -2,6 +2,7 @@ import tensorflow as tf
 from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras import Model
+from tensorflow.keras.models import load_model,model_from_json
 
 def conv_block(X,filters,block):
 
@@ -78,7 +79,6 @@ def PSP_NET_helper(input_layer,n_classes):
 def crop(o1, o2, i):
     o_shape2 = Model(i, o2).output_shape
 
-
     output_height2 = o_shape2[1]
     output_width2 = o_shape2[2]
 
@@ -100,3 +100,11 @@ def crop(o1, o2, i):
         o2 = Cropping2D(cropping=((0, cy),  (0, 0)))(o2)
 
     return o1, o2
+
+
+def get_json(save_json_path):
+    json_file = open(save_json_path, 'r')
+    loaded_model_json = json_file.read()
+    json_file.close()
+    loaded_model = model_from_json(loaded_model_json)
+    return loaded_model

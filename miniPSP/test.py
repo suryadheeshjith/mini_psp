@@ -5,19 +5,20 @@ from __future__ import print_function
 
 import tensorflow as tf
 from tensorflow.keras.optimizers import *
-from tensorflow.keras.models import load_model,model_from_json
 import numpy as np
 import argparse
-import os
 import os.path as osp
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 
 from utils.data_utils import round_outputs
+from utils.model_utils import get_json
 from utils.logger_utils import get_logger
-from utils.metric_utils import evaluate, conf_matrix
+from utils.metric_utils import conf_matrix
 from utils.plot_utils import plot_confusion_matrix
+from utils.store_utils import log_eval
 from utils.tiling_utils import save_masks
+
 
 def parse_args():
 
@@ -34,7 +35,28 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+
+
 def test(args, class_names):
+
+    """
+
+    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+    INPUT :  * Two npy files called input.npy and output.npy corresponding to the patches generated from the satellite images and the target masks.
+             * Model JSON path
+             * Model weights path
+             * Model name
+
+    OUTPUT : * Evaluate the model based on Accuracy, IoU and F1-score
+             * Plot and save the confusion matrix
+             * Save the output masks
+    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    This function tests the model on the data given as input and based on the JSON and weights files saved during training. Output is based on user selection in
+    the command line. For evaluation, Accuracy, IoU and F1-score is logged for each class with their means. The confusion matrix and the output masks can also be
+    saved.
+
+    """
 
     input_npy = args.input_npy
     output_npy = args.output_npy
@@ -43,20 +65,19 @@ def test(args, class_names):
     model_path = osp.abspath(osp.dirname(args.mjpath))
 
     # Read model from JSON
-    json_file = open(save_json_path, 'r')
-    loaded_model_json = json_file.read()
-    json_file.close()
-    loaded_model = model_from_json(loaded_model_json)
+    model = get_json(save_json_path)
 
     # Load weights
-    loaded_model.load_weights(save_weight_path)
+    model.load_weights(save_weight_path)
+
+    # Model initialisation
     if(args.mname.lower()=='psp'):
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=0.01,decay_steps=100000,decay_rate=0.96,staircase=True)
         optimizer = SGD(learning_rate=lr_schedule, momentum=0.9, nesterov=False)
     else:
         optimizer = Adam()
-    loaded_model.compile(optimizer=optimizer,loss='categorical_crossentropy', metrics=['accuracy'])
-    model = loaded_model
+
+    model.compile(optimizer=optimizer,loss='categorical_crossentropy', metrics=['accuracy'])
 
     # Load data files
     X_test = np.load(input_npy)
@@ -69,6 +90,9 @@ def test(args, class_names):
 
     # Predict
     y_pred = model.predict(X_test)
+
+
+    # Reshape
     y_pred = np.reshape(y_pred,(-1,256,256,5))
     y_test = np.reshape(y_test,(-1,256,256,5))
 
@@ -77,44 +101,22 @@ def test(args, class_names):
 
     # Evaluate model
     if(args.eval):
-        acc,iou,f1 = evaluate(y_test,y_pred,n_classes=len(class_names))
-        logger.info("Class\t\tAccuracy")
-        for k in acc.keys():
-            logger.info("{}\t\t{}".format(k,acc[k]))
+        log_eval(y_test,y_pred,n_classes=len(class_names))
 
-        logger.info("\n\n")
-        logger.info("Class\t\tIoU")
-        for k in iou.keys():
-            logger.info("{}\t\t{}".format(k,iou[k]))
-
-        logger.info("\n\n")
-        logger.info("Class\t\tF1-Score")
-        for k in f1.keys():
-            logger.info("{}\t\t{}".format(k,f1[k]))
-
-
+    # Confusion matrix
     if(args.plot_conf):
         cm = conf_matrix(y_test,y_pred)
         logger.info("\nConfusion matrix : ")
         logger.info(cm)
         plot_confusion_matrix(cm,class_names,model_path)
 
-
+    # Save masks
     if(args.save_masks):
-        sample_path = None
-        sam_path = 'Data/Targets'
-        for i in os.listdir(sam_path):
-            if(i.endswith("tif")):
-                sample_path = osp.join(sam_path,i)
-                break
-        if(not sample_path):
-            print("No valid reference path!")
-            exit(0)
-        save_masks(sample_path, model_path, y_pred)
+        save_masks(odel_path, y_pred)
 
 if __name__ == '__main__':
 
-
+    # Class names (Can be changed by User)
     class_names = ['Veg','Built-up','Open land','Roads','Waterbodies']
 
 

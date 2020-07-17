@@ -3,6 +3,7 @@ import rasterio.windows
 from rasterio.windows import Window
 import random
 import numpy as np
+import os
 import os.path as osp
 
 def createTiles(src: rasterio.DatasetReader, size_h, size_w, overlap=0):
@@ -80,7 +81,17 @@ def writeTIFF(data, out_file: str, height, width, crs, transform, windowI, windo
 
 
 
-def save_masks(sample_path,save_path, y_pred):
+def save_masks(save_path, y_pred):
+    sample_path = None
+    sam_path = 'Data/Targets'
+    for i in os.listdir(sam_path):
+        if(i.endswith("tif")):
+            sample_path = osp.join(sam_path,i)
+            break
+    if(not sample_path):
+        print("No valid reference path!")
+        exit(0)
+        
     with rasterio.open(sample_path) as src:
         input_crs = src.crs
         input_transform = src.transform

@@ -29,23 +29,25 @@ def generate():
     """
 
     -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-    INPUT : 1. Satellite images
-            2. Target Masks
-            3. Dimensions of patch
+    INPUT : * Directory containing the Satellite images and Target Masks. (.tif files)
+            * Output Directory
+            * Dimensions of patch size
+            * Stride length
 
     OUTPUT : Two npy files called input.npy and output.npy (stored in the output directory) corresponding to the patches generated from the satellite images
              and the target masks.
     -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    This function takes the inputs from the arguments passed in command line. The satellite image and masks directory is taken as input
-    and patches are generated for training the model. The files are to be present in the Data/Bands and Data/Targets directories. (Place the satellite images in
-    Bands and the target masks in Targets.)
+    The input directory is taken and all the files are parsed and patches are generated for training the model. All the files must be in .tif format. This
+    directory must contain two folders Bands and Targets, and each must contain their respective files. For example, you could call your directory Data and
+    it must contain a structure like this -
 
     ├── miniPSP
     │   ├── Data
     │   │   ├── Bands
     │___│___├── Targets
 
+    The npy files will then be saved in the Output directory.
 
     """
 

@@ -11,10 +11,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 import os
 import os.path as osp
-from io import StringIO
 
 from utils.logger_utils import get_logger
 from utils.plot_utils import plot_history
+from utils.store_utils import get_summary_string, save_model
 from models.models import PSP_Net, UNET, FCN
 
 
@@ -33,7 +33,13 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+
 def get_model(model_name, input_shape, n_classes):
+
+    """
+    Selects the model based on model_name
+    """
+
     # PSP
     if(model_name.lower()=='psp'):
         logger.info("PSPNet model used")
@@ -62,7 +68,26 @@ def get_model(model_name, input_shape, n_classes):
 
     return model
 
+
+
 def train(args):
+
+    """
+
+    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+    INPUT :  * Two npy files called input.npy and output.npy corresponding to the patches generated from the satellite images and the target masks.
+             * Model name
+             * Model path
+
+    OUTPUT : * Model JSON file
+             * Model Weights file (Best weights and Final weights)
+    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    This function trains the model on the data given as input and saves the JSON and weights files in the directory provided by Model path. There is also
+    provision to set the number of epochs and batch size in the command line.
+
+
+    """
 
     input_npy = args.input_npy
     output_npy = args.output_npy
@@ -100,25 +125,14 @@ def train(args):
     model = get_model(model_name, input_shape, n_classes)
 
     # Logging model.summary()
-    tmp_smry = StringIO()
-    model.summary(print_fn=lambda x: tmp_smry.write(x + '\n'))
-    summary = tmp_smry.getvalue()
+    summary  = get_summary_string(model)
     logger.info("Model Summary :\n {}".format(summary))
 
     # Model fit
     history = model.fit(dataset[0], dataset[1], epochs=args.epochs, batch_size =args.batch_size,validation_split=0.2,callbacks=callbacks_list)
 
-    # Save model JSON
-    print("saving model json")
-    model_json = model.to_json()
-    save_json_path = osp.join(model_path,"model.json")
-    with open(save_json_path, "w") as json_file:
-        json_file.write(model_json)
-
-    # Save final weights
-    print("saving weights.h5")
-    save_weight_path = osp.join(model_path,"model_final_weights.h5")
-    model.save_weights(save_weight_path)
+    # Save model
+    save_model(model, model_path)
 
     # Plot history option
     if(args.plot_hist):
