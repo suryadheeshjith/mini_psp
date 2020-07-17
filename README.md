@@ -103,7 +103,7 @@ To generate patches, we run the [patch_generator.py](https://github.com/suryadhe
 
 * -h, --help : show this help message and exit
 
-* -d, --tdim : Dimensions of the Tile size. Default = 256
+* -d, --tdim : Dimensions of the patch size (Height/Width). Default = 256
 
 * -i, --inpf : Input Folder containing the input tiff files. (Required)
 
