@@ -21,9 +21,15 @@ Each pixel is classified into one of the following classes :
 
 The proposed study makes use of multispectral satellite imagery collected by the Sentinel-2 mission. The data collected was of 16-bit 6 type, covering the study area, and four 10 m spatial resolution bands of Sentinel-2, i.e., B2 (490 nm), B3 (560 nm), B4 (665 nm) and B8 (842 nm) are considered. The input's dimensions are 256 x 256 x 4, which means we use a height and width of 256. Some examples are given below.
 
-<img src="figures/WaterbodiesImage.PNG" alt="Waterbodies Image" width =100> <img src="figures/Waterbodies.PNG" alt="Waterbodies Mask" width =100>
-<img src="figures/RoadsImage.PNG" alt="Roads Image" width =100> <img src="figures/Roads.PNG" alt="Roads Mask" width =100>
-<img src="figures/OpenlandImage.PNG" alt="Openland Image" width =100> <img src="figures/Openland.PNG" alt="Openland Mask" width =100>
+<img src="figures/WaterbodiesImage.PNG" alt="Waterbodies Image" width =150> <img src="figures/Waterbodies.PNG" alt="Waterbodies Mask" width =150>
+
+<img src="figures/RoadsImage.PNG" alt="Roads Image" width =150> <img src="figures/Roads.PNG" alt="Roads Mask" width =150>
+
+<img src="figures/OpenlandImage.PNG" alt="Openland Image" width =150> <img src="figures/Openland.PNG" alt="Openland Mask" width =150>
+
+<img src="figures/VegetationImage.PNG" alt="Vegetation Image" width =150> <img src="figures/Vegetation.PNG" alt="Vegetation Mask" width =150>
+
+<img src="figures/BuildingsImage.PNG" alt="Built-up Image" width =150> <img src="figures/Buildings.PNG" alt="Built-up Mask" width =150>
 
 
 Apart from the PSPNet model, UNET and FCN models have also been implemented.
