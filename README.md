@@ -113,21 +113,21 @@ To generate patches, we run the [patch_generator.py](https://github.com/suryadhe
 
 The npy files will then be saved in the Output directory.
 
--------------------------------------------------------------------------------------------------------------
+
 INPUT (Command line Arguments):
-* Directory containing the Satellite images and Target Masks. (.tif files)
-* Output Directory
-* Dimensions of patch size [OPTIONAL][DEFAULT=256]
-* Stride length [OPTIONAL][DEFAULT=0]
-* Threshold for selecting patches [OPTIONAL][DEFAULT=8]
-* Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
-* Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
-* Option for separate train test files [OPTIONAL][DEFAULT=False]
-* Option for saving details of saved .npy files [OPTIONAL][DEFAULT=False]
+    * Directory containing the Satellite images and Target Masks. (.tif files)
+    * Output Directory
+    * Dimensions of patch size [OPTIONAL][DEFAULT=256]
+    * Stride length [OPTIONAL][DEFAULT=0]
+    * Threshold for selecting patches [OPTIONAL][DEFAULT=8]
+    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+    * Option for separate train test files [OPTIONAL][DEFAULT=False]
+    * Option for saving details of saved .npy files [OPTIONAL][DEFAULT=False]
 
 OUTPUT :
-* Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
--------------------------------------------------------------------------------------------------------------
+    * Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
+
 
 An example command would be
 
@@ -138,7 +138,7 @@ An example command would be
 
 Training the model will save a JSON file, a best weights and final weights file. Training is done by the [train.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/train.py) file. This file is used to train the model on the data given as input and saves the JSON and weights files in the directory provided by 'Model path'. There is also provision to set the number of epochs and batch size in the command line.
 
--------------------------------------------------------------------------------------------------------------
+
 INPUT (Command line Arguments):
     * Input npy file path corresponding to the patches generated from the satellite images
     * Output npy file path corresponding to the patches generated from the target masks
@@ -153,7 +153,7 @@ INPUT (Command line Arguments):
 OUTPUT :
     * Model JSON file
     * Model Weights file (Best weights and Final weights)
--------------------------------------------------------------------------------------------------------------
+
 
 An example command would be
 
@@ -163,7 +163,7 @@ An example command would be
 
 Testing is done by the [test.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/test.py) file. This file is used to test the model on the data given as input based on the JSON and weights files saved during training. The output is based on command line arguments given by the user. For evaluation, Accuracy, IoU and F1-score is logged for each class with their means. The confusion matrix and the output masks can also be saved.
 
--------------------------------------------------------------------------------------------------------------
+
 INPUT (Command line Arguments):
     * Input npy file path corresponding to the patches generated from the satellite images.
     * Output npy file path corresponding to the patches generated from the target masks.
@@ -179,7 +179,7 @@ OUTPUT :
     * Evaluate the model based on Accuracy, IoU and F1-score
     * Saved normalised confusion matrix
     * Saved output masks
--------------------------------------------------------------------------------------------------------------
+
 
 An example command would be
 
