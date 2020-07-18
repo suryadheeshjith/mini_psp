@@ -15,7 +15,7 @@ import os.path as osp
 from utils.logger_utils import get_logger
 from utils.plot_utils import plot_history
 from utils.store_utils import get_summary_string, save_model
-from models.models import psp_net, train, fcn
+from models.models import psp_net, unet, fcn
 
 
 
