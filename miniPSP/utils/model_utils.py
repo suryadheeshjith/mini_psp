@@ -65,7 +65,7 @@ def feature_extractor(input_layer):
 
 
 
-def PSP_NET_helper(input_layer,n_classes):
+def psp_net_helper(input_layer,n_classes):
     X = feature_extractor(input_layer)
     X = Convolution2D(filters=n_classes,kernel_size=3,padding='same',name='last_conv_3_by_3')(X)
     X = BatchNormalization(name='last_conv_5_by_5_batch_norm')(X)

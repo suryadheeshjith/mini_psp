@@ -5,7 +5,7 @@ import os.path as osp
 from sklearn.model_selection import train_test_split
 
 from .store_utils import save_details
-from .tiling_utils import createTiles, selectTiles
+from .tiling_utils import create_patches, select_patches
 from utils.logger_utils import get_logger
 
 
@@ -27,19 +27,19 @@ def get_multi_io(ls, w, h,overlap=False):
     Patches are given appropriate shape here.
     """
 
-    Tiles = []
+    Patches = []
     inputs = []
     input1 = np.zeros(w*h*len(ls))
     input1 = input1.reshape(h, w, len(ls))
 
     for file_path in ls: # For each band's file path
         with rasterio.open(file_path) as src:
-            _tiles = createTiles(src, h, w,overlap)
-            Tiles.append(_tiles)
+            _patches = create_patches(src, h, w,overlap)
+            Patches.append(_patches)
 
-    for i in range(len(Tiles[0])):
-        for j in range(len(Tiles)):
-            input1[:, :, j] = Tiles[j][i]['data']
+    for i in range(len(Patches[0])):
+        for j in range(len(Patches)):
+            input1[:, :, j] = Patches[j][i]['data']
 
         inputs.append(input1)
         input1 = np.zeros((w,h,len(ls)))
@@ -116,7 +116,7 @@ def save_npy(args):
 
     # Selecting patches
     if(args.thresh>0):
-        Inputs,Output = selectTiles(Inputs,Output,args.percentage_ones,args.thresh)
+        Inputs,Output = select_patches(Inputs,Output,args.percentage_ones,args.thresh)
 
 
     #Saving input

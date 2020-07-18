@@ -3,13 +3,13 @@ from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras import Model
 
-from utils.model_utils import PSP_NET_helper, crop
+from utils.model_utils import psp_net_helper, crop
 
 
 def PSP_Net(input_shape = (256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
 
     inputs = Input(input_shape)
-    out = PSP_NET_helper(inputs,n_classes)
+    out = psp_net_helper(inputs,n_classes)
     model = Model(inputs = inputs, outputs = out)
     model.compile(optimizer = optimizer, loss = loss, metrics = ['accuracy'])
 

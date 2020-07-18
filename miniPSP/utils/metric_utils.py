@@ -38,7 +38,7 @@ def get_class_accuracies(target,prediction,n_classes):
     return acc
 
 
-def get_class_IoU(target,prediction,n_classes):
+def get_class_iou(target,prediction,n_classes):
 
     """
     Returns class IoUs
@@ -57,7 +57,7 @@ def get_class_IoU(target,prediction,n_classes):
     return IoU
 
 
-def get_class_F1(target,prediction,n_classes):
+def get_class_f1(target,prediction,n_classes):
 
     """
     Returns class F1-scores
@@ -83,8 +83,8 @@ def evaluate(target,prediction,n_classes):
     """
 
     acc = get_class_accuracies(target,prediction,n_classes)
-    iou = get_class_IoU(target,prediction,n_classes)
-    f1 = get_class_F1(target,prediction,n_classes)
+    iou = get_class_iou(target,prediction,n_classes)
+    f1 = get_class_f1(target,prediction,n_classes)
 
     return acc,iou,f1
 
@@ -102,6 +102,6 @@ def conf_matrix(y_test,y_pred):
     arr = np.where(added==2)
     y_test2 = np.delete(y_test,arr[0],axis=0)
     y_pred2 = np.delete(y_pred,arr[0],axis=0)
-    
+
     cm = metrics.confusion_matrix(y_test.argmax(axis=1),y_pred.argmax(axis=1))
     return cm

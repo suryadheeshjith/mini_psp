@@ -20,7 +20,7 @@ def save_details(args,input_shape,target_shape):
     f.write("Strides taken : {}\n".format(args.strides))
 
     if(args.thresh>0):
-        f.write("Selecting Tiles with Percentage ones and threshold : {},{}\n".format(args.percentage_ones,args.thresh))
+        f.write("Selecting Patches with Percentage ones and threshold : {},{}\n".format(args.percentage_ones,args.thresh))
 
 
     f.write('Input shape : {}\n'.format(input_shape))
