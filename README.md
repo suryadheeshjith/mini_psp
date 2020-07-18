@@ -115,18 +115,18 @@ The npy files will then be saved in the Output directory.
 
 
 INPUT (Command line Arguments):
-    * Directory containing the Satellite images and Target Masks. (.tif files)
-    * Output Directory
-    * Dimensions of patch size [OPTIONAL][DEFAULT=256]
-    * Stride length [OPTIONAL][DEFAULT=0]
-    * Threshold for selecting patches [OPTIONAL][DEFAULT=8]
-    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
-    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
-    * Option for separate train test files [OPTIONAL][DEFAULT=False]
-    * Option for saving details of saved .npy files [OPTIONAL][DEFAULT=False]
+* Directory containing the Satellite images and Target Masks. (.tif files)
+* Output Directory
+* Dimensions of patch size [OPTIONAL][DEFAULT=256]
+* Stride length [OPTIONAL][DEFAULT=0]
+* Threshold for selecting patches [OPTIONAL][DEFAULT=8]
+* Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+* Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+* Option for separate train test files [OPTIONAL][DEFAULT=False]
+* Option for saving details of saved .npy files [OPTIONAL][DEFAULT=False]
 
 OUTPUT :
-    * Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
+* Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
 
 
 An example command would be
@@ -140,19 +140,19 @@ Training the model will save a JSON file, a best weights and final weights file.
 
 
 INPUT (Command line Arguments):
-    * Input npy file path corresponding to the patches generated from the satellite images
-    * Output npy file path corresponding to the patches generated from the target masks
-    * Model path
-    * Model name [OPTIONAL][DEFAULT='psp']
-    * Number of Epochs [OPTIONAL][DEFAULT=50]
-    * Batch Size [OPTIONAL][DEFAULT=8]
-    * Train Tested Data used [OPTIONAL][DEFAULT=False]
-    * Evaluate the model and log the results [OPTIONAL][DEFAULT=False]
-    * Save Accuracy and Loss graphs [OPTIONAL][DEFAULT=False]
+* Input npy file path corresponding to the patches generated from the satellite images
+* Output npy file path corresponding to the patches generated from the target masks
+* Model path
+* Model name [OPTIONAL][DEFAULT='psp']
+* Number of Epochs [OPTIONAL][DEFAULT=50]
+* Batch Size [OPTIONAL][DEFAULT=8]
+* Train Tested Data used [OPTIONAL][DEFAULT=False]
+* Evaluate the model and log the results [OPTIONAL][DEFAULT=False]
+* Save Accuracy and Loss graphs [OPTIONAL][DEFAULT=False]
 
 OUTPUT :
-    * Model JSON file
-    * Model Weights file (Best weights and Final weights)
+* Model JSON file
+* Model Weights file (Best weights and Final weights)
 
 
 An example command would be
@@ -165,20 +165,20 @@ Testing is done by the [test.py](https://github.com/suryadheeshjith/ISRO_Repo/bl
 
 
 INPUT (Command line Arguments):
-    * Input npy file path corresponding to the patches generated from the satellite images.
-    * Output npy file path corresponding to the patches generated from the target masks.
-    * Model JSON path
-    * Model weights path
-    * Model name [OPTIONAL][DEFAULT='psp']
-    * Train Tested Data used [OPTIONAL][DEFAULT=False]
-    * Evaluate the model and log the results [OPTIONAL][DEFAULT=False]
-    * Plot confusion matrix [OPTIONAL][DEFAULT=False]
-    * Save masks for each class [OPTIONAL][DEFAULT=False]
+* Input npy file path corresponding to the patches generated from the satellite images.
+* Output npy file path corresponding to the patches generated from the target masks.
+* Model JSON path
+* Model weights path
+* Model name [OPTIONAL][DEFAULT='psp']
+* Train Tested Data used [OPTIONAL][DEFAULT=False]
+* Evaluate the model and log the results [OPTIONAL][DEFAULT=False]
+* Plot confusion matrix [OPTIONAL][DEFAULT=False]
+* Save masks for each class [OPTIONAL][DEFAULT=False]
 
 OUTPUT :
-    * Evaluate the model based on Accuracy, IoU and F1-score
-    * Saved normalised confusion matrix
-    * Saved output masks
+* Evaluate the model based on Accuracy, IoU and F1-score
+* Saved normalised confusion matrix
+* Saved output masks
 
 
 An example command would be
