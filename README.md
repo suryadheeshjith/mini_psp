@@ -104,28 +104,30 @@ The Data folder contains the Bands and the Targets folders. The Bands folder sho
 
 ### Patch Generation
 
-To generate patches, we run the [patch_generator.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/patch_generator.py) file.
+To generate patches, we run the [patch_generator.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/patch_generator.py) file. This file is used to generate patches from the Satellite images and Target Masks. An input directory that contains all these files is accepted as input and each file is parsed and patches are generated for training the model. All the files must be in .tif format. The input directory must contain two folders Bands and Targets, and each must contain the Satellite image bands and Target Masks. For example, you could call your directory 'Data' and it must have a directory structure like this -
 
-##### List of Command-line Parameters
+├── miniPSP
+│   ├── Data
+│   │   ├── Bands
+│___│___├── Targets
 
-* -h, --help : show this help message and exit
+The npy files will then be saved in the Output directory.
 
-* -d, --tdim : Dimensions of the patch size (Height/Width). Default = 256
+-------------------------------------------------------------------------------------------------------------
+INPUT (Command line Arguments):
+    * Directory containing the Satellite images and Target Masks. (.tif files)
+    * Output Directory
+    * Dimensions of patch size [OPTIONAL][DEFAULT=256]
+    * Stride length [OPTIONAL][DEFAULT=0]
+    * Threshold for selecting patches [OPTIONAL][DEFAULT=8]
+    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+    * Option for separate train test files [OPTIONAL][DEFAULT=False]
+    * Option for saving details of saved .npy files [OPTIONAL][DEFAULT=False]
 
-* -i, --inpf : Input Folder containing the input tiff files. (Required)
-
-* -o, --outf : Output folder to store the training .npy files. (Required)
-
-* -tp, --threshp : Percentage ones in each patch. Enter value between 0 - 1 Default = 0.25
-
-* -tr, --threshr : Threshold parameter while selecting patches. Enter value between 0 - 10 Default = 8
-
-* -str, --strides : Strides taken for tiling to obtain overlapping patches. Default = 0 (for non-overlapping patches)
-
-* -tt, --traintest : Save separate files for training and testing. Default = False
-
-* -s, --save : Save details of patches generated. Default = False
-
+OUTPUT :
+    * Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
+-------------------------------------------------------------------------------------------------------------
 
 An example command would be
 
@@ -134,29 +136,24 @@ An example command would be
 
 ### Model Training
 
-Training the model will save a JSON file, a best weights and final weights file. Training is done by the [train.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/train.py) file.
+Training the model will save a JSON file, a best weights and final weights file. Training is done by the [train.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/train.py) file. This file is used to train the model on the data given as input and saves the JSON and weights files in the directory provided by 'Model path'. There is also provision to set the number of epochs and batch size in the command line.
 
-##### List of Command-line Parameters
+-------------------------------------------------------------------------------------------------------------
+INPUT (Command line Arguments):
+    * Input npy file path corresponding to the patches generated from the satellite images
+    * Output npy file path corresponding to the patches generated from the target masks
+    * Model path
+    * Model name [OPTIONAL][DEFAULT='psp']
+    * Number of Epochs [OPTIONAL][DEFAULT=50]
+    * Batch Size [OPTIONAL][DEFAULT=8]
+    * Train Tested Data used [OPTIONAL][DEFAULT=False]
+    * Evaluate the model and log the results [OPTIONAL][DEFAULT=False]
+    * Save Accuracy and Loss graphs [OPTIONAL][DEFAULT=False]
 
-* -h, --help : show this help message and exit
-
-* -i, --inp : Input npy file path. (Required)
-
-* -o, --out : Output npy file path. (Required)
-
-* -mp, --mpath : Model path to save all required files for testing. (Required)
-
-* -mn, --mname : Model name. Options : psp, unet or fcn. Default = psp
-
-* -e , --epochs : Number of epochs. Default = 50
-
-* -b, --batch : Batch size. Default = 8
-
-* -tt, --traintest : Use Train Test split. Default = False
-
-* -pl, --plot : Plot Accuracy and Loss graphs. Default = False
-
-
+OUTPUT :
+    * Model JSON file
+    * Model Weights file (Best weights and Final weights)
+-------------------------------------------------------------------------------------------------------------
 
 An example command would be
 
@@ -164,29 +161,25 @@ An example command would be
 
 ### Model Testing
 
-Testing is done by the [test.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/test.py) file.
+Testing is done by the [test.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/test.py) file. This file is used to test the model on the data given as input based on the JSON and weights files saved during training. The output is based on command line arguments given by the user. For evaluation, Accuracy, IoU and F1-score is logged for each class with their means. The confusion matrix and the output masks can also be saved.
 
-##### List of Command-line Parameters
+-------------------------------------------------------------------------------------------------------------
+INPUT (Command line Arguments):
+    * Input npy file path corresponding to the patches generated from the satellite images.
+    * Output npy file path corresponding to the patches generated from the target masks.
+    * Model JSON path
+    * Model weights path
+    * Model name [OPTIONAL][DEFAULT='psp']
+    * Train Tested Data used [OPTIONAL][DEFAULT=False]
+    * Evaluate the model and log the results [OPTIONAL][DEFAULT=False]
+    * Plot confusion matrix [OPTIONAL][DEFAULT=False]
+    * Save masks for each class [OPTIONAL][DEFAULT=False]
 
-* -h, --help : show this help message and exit
-
-* -i, --inp : Input npy file path. (Required)
-
-* -o, --out : Output npy file path. (Required)
-
-* -mj, --mjpath : Model JSON file path. (Required)
-
-* -mw, --mwpath : Model weights file path. (Required)
-
-* -mn, --mname : Model name. Options : psp, unet or fcn. Default = psp
-
-* -tt, --traintest : Use Train Test split. Default = False
-
-* -e. --eval : Evaluate the model and log the results. Default = False
-
-* -pl, --plot : Plot confusion matrix. Default = False
-
-* -s, --save : Save masks for each class. Default = False
+OUTPUT :
+    * Evaluate the model based on Accuracy, IoU and F1-score
+    * Saved normalised confusion matrix
+    * Saved output masks
+-------------------------------------------------------------------------------------------------------------
 
 An example command would be
 
