@@ -1,3 +1,22 @@
+"""
+
+This file is used to test the model on the data given as input based on the JSON and weights files saved during training. Output is
+based on user selection in the command line. For evaluation, Accuracy, IoU and F1-score is logged for each class with their means. The
+confusion matrix and the output masks can also be saved.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+INPUT :  * Two npy files called input.npy and output.npy corresponding to the patches generated from the satellite images and the target masks.
+         * Model JSON path
+         * Model weights path
+         * Model name
+
+OUTPUT : * Evaluate the model based on Accuracy, IoU and F1-score
+         * Plot and save the confusion matrix
+         * Save the output masks
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+"""
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -39,24 +58,7 @@ def parse_args():
 
 def test(args, class_names):
 
-    """
-
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-    INPUT :  * Two npy files called input.npy and output.npy corresponding to the patches generated from the satellite images and the target masks.
-             * Model JSON path
-             * Model weights path
-             * Model name
-
-    OUTPUT : * Evaluate the model based on Accuracy, IoU and F1-score
-             * Plot and save the confusion matrix
-             * Save the output masks
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    This function tests the model on the data given as input and based on the JSON and weights files saved during training. Output is based on user selection in
-    the command line. For evaluation, Accuracy, IoU and F1-score is logged for each class with their means. The confusion matrix and the output masks can also be
-    saved.
-
-    """
+    '''Test function'''
 
     input_npy = args.input_npy
     output_npy = args.output_npy

@@ -1,3 +1,27 @@
+"""
+This file is used to generate patches from the Satellite images and Target Masks. An input directory that contains all these files is accepted
+as input and each file is parsed and patches are generated for training the model. All the files must be in .tif format. The input directory
+must contain two folders Bands and Targets, and each must contain the Satellite image bands and Target Masks. For example, you could call your directory
+Data and it must have a directory structure like this -
+
+├── miniPSP
+│   ├── Data
+│   │   ├── Bands
+│___│___├── Targets
+
+The npy files will then be saved in the Output directory.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+INPUT : * Directory containing the Satellite images and Target Masks. (.tif files)
+        * Output Directory
+        * Dimensions of patch size
+        * Stride length
+
+OUTPUT : Two npy files called input.npy and output.npy (stored in the output directory) corresponding to the patches generated from the satellite images
+         and the target masks.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+"""
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -26,30 +50,7 @@ def parse_args():
 
 def generate():
 
-    """
-
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-    INPUT : * Directory containing the Satellite images and Target Masks. (.tif files)
-            * Output Directory
-            * Dimensions of patch size
-            * Stride length
-
-    OUTPUT : Two npy files called input.npy and output.npy (stored in the output directory) corresponding to the patches generated from the satellite images
-             and the target masks.
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    The input directory is taken and all the files are parsed and patches are generated for training the model. All the files must be in .tif format. This
-    directory must contain two folders Bands and Targets, and each must contain their respective files. For example, you could call your directory Data and
-    it must contain a structure like this -
-
-    ├── miniPSP
-    │   ├── Data
-    │   │   ├── Bands
-    │___│___├── Targets
-
-    The npy files will then be saved in the Output directory.
-
-    """
+    '''Generates Patches'''
 
     # Logger
     logger = get_logger()

@@ -1,3 +1,19 @@
+"""
+
+This file is used to train the model on the data given as input and saves the JSON and weights files in the directory provided by 'Model path'. There is also
+provision to set the number of epochs and batch size in the command line.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+INPUT :  * Two npy files called input.npy and output.npy corresponding to the patches generated from the satellite images and the target masks.
+         * Model name
+         * Model path
+
+OUTPUT : * Model JSON file
+         * Model Weights file (Best weights and Final weights)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+"""
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -18,7 +34,6 @@ from utils.store_utils import get_summary_string, save_model
 from models.models import psp_net, unet, fcn
 
 
-
 def parse_args():
 
     parser = argparse.ArgumentParser()
@@ -36,9 +51,7 @@ def parse_args():
 
 def get_model(model_name, input_shape, n_classes):
 
-    """
-    Selects the model based on model_name
-    """
+    '''Selects the model based on model_name'''
 
     # PSP
     if(model_name.lower()=='psp'):
@@ -72,22 +85,7 @@ def get_model(model_name, input_shape, n_classes):
 
 def train(args):
 
-    """
-
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-    INPUT :  * Two npy files called input.npy and output.npy corresponding to the patches generated from the satellite images and the target masks.
-             * Model name
-             * Model path
-
-    OUTPUT : * Model JSON file
-             * Model Weights file (Best weights and Final weights)
-    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    This function trains the model on the data given as input and saves the JSON and weights files in the directory provided by Model path. There is also
-    provision to set the number of epochs and batch size in the command line.
-
-
-    """
+    '''Train function'''
 
     input_npy = args.input_npy
     output_npy = args.output_npy
