@@ -109,9 +109,9 @@ To generate patches, we run the [patch_generator.py](https://github.com/suryadhe
 
 * -o, --outf : Output folder to store the training .npy files. (Required)
 
-* -tp, --threshp : Percentage ones in each tile. Enter value between 0 - 1 Default = 0.25
+* -tp, --threshp : Percentage ones in each patch. Enter value between 0 - 1 Default = 0.25
 
-* -tr, --threshr : Threshold parameter while selecting tiles. Enter value between 0 - 10 Default = 8
+* -tr, --threshr : Threshold parameter while selecting patches. Enter value between 0 - 10 Default = 8
 
 * -str, --strides : Strides taken for tiling to obtain overlapping patches. Default = 0 (for non-overlapping patches)
 
