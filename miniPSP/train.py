@@ -3,14 +3,22 @@
 This file is used to train the model on the data given as input and saves the JSON and weights files in the directory provided by 'Model path'. There is also
 provision to set the number of epochs and batch size in the command line.
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------
-INPUT :  * Two npy files called input.npy and output.npy corresponding to the patches generated from the satellite images and the target masks.
-         * Model name
-         * Model path
+-------------------------------------------------------------------------------------------------------------
+INPUT (Command line Arguments):
+    * Input npy file path corresponding to the patches generated from the satellite images
+    * Output npy file path corresponding to the patches generated from the target masks
+    * Model path
+    * Model name [OPTIONAL][DEFAULT='psp']
+    * Number of Epochs [OPTIONAL][DEFAULT=50]
+    * Batch Size [OPTIONAL][DEFAULT=8]
+    * Train Tested Data used [OPTIONAL][DEFAULT=False]
+    * Evaluate the model and log the results [OPTIONAL][DEFAULT=False]
+    * Save Accuracy and Loss graphs [OPTIONAL][DEFAULT=False]
 
-OUTPUT : * Model JSON file
-         * Model Weights file (Best weights and Final weights)
------------------------------------------------------------------------------------------------------------------------------------------------------------------
+OUTPUT :
+    * Model JSON file
+    * Model Weights file (Best weights and Final weights)
+-------------------------------------------------------------------------------------------------------------
 
 """
 

@@ -1,19 +1,26 @@
 """
 
-This file is used to test the model on the data given as input based on the JSON and weights files saved during training. Output is
-based on user selection in the command line. For evaluation, Accuracy, IoU and F1-score is logged for each class with their means. The
+This file is used to test the model on the data given as input based on the JSON and weights files saved during training. The output is
+based on command line arguments given by the user. For evaluation, Accuracy, IoU and F1-score is logged for each class with their means. The
 confusion matrix and the output masks can also be saved.
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------
-INPUT :  * Two npy files called input.npy and output.npy corresponding to the patches generated from the satellite images and the target masks.
-         * Model JSON path
-         * Model weights path
-         * Model name
+-------------------------------------------------------------------------------------------------------------
+INPUT (Command line Arguments):
+    * Input npy file path corresponding to the patches generated from the satellite images.
+    * Output npy file path corresponding to the patches generated from the target masks.
+    * Model JSON path
+    * Model weights path
+    * Model name [OPTIONAL][DEFAULT='psp']
+    * Train Tested Data used [OPTIONAL][DEFAULT=False]
+    * Evaluate the model and log the results [OPTIONAL][DEFAULT=False]
+    * Plot confusion matrix [OPTIONAL][DEFAULT=False]
+    * Save masks for each class [OPTIONAL][DEFAULT=False]
 
-OUTPUT : * Evaluate the model based on Accuracy, IoU and F1-score
-         * Plot and save the confusion matrix
-         * Save the output masks
------------------------------------------------------------------------------------------------------------------------------------------------------------------
+OUTPUT :
+    * Evaluate the model based on Accuracy, IoU and F1-score
+    * Saved normalised confusion matrix
+    * Saved output masks
+-------------------------------------------------------------------------------------------------------------
 
 """
 

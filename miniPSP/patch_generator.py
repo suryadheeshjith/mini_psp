@@ -2,7 +2,7 @@
 This file is used to generate patches from the Satellite images and Target Masks. An input directory that contains all these files is accepted
 as input and each file is parsed and patches are generated for training the model. All the files must be in .tif format. The input directory
 must contain two folders Bands and Targets, and each must contain the Satellite image bands and Target Masks. For example, you could call your directory
-Data and it must have a directory structure like this -
+'Data' and it must have a directory structure like this -
 
 ├── miniPSP
 │   ├── Data
@@ -10,15 +10,21 @@ Data and it must have a directory structure like this -
 │___│___├── Targets
 
 The npy files will then be saved in the Output directory.
------------------------------------------------------------------------------------------------------------------------------------------------------------------
-INPUT : * Directory containing the Satellite images and Target Masks. (.tif files)
-        * Output Directory
-        * Dimensions of patch size
-        * Stride length
+-------------------------------------------------------------------------------------------------------------
+INPUT (Command line Arguments):
+    * Directory containing the Satellite images and Target Masks. (.tif files)
+    * Output Directory
+    * Dimensions of patch size [OPTIONAL][DEFAULT=256]
+    * Stride length [OPTIONAL][DEFAULT=0]
+    * Threshold for selecting patches [OPTIONAL][DEFAULT=8]
+    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+    * Option for separate train test files [OPTIONAL][DEFAULT=False]
+    * Option for saving details of saved .npy files [OPTIONAL][DEFAULT=False]
 
-OUTPUT : Two npy files called input.npy and output.npy (stored in the output directory) corresponding to the patches generated from the satellite images
-         and the target masks.
------------------------------------------------------------------------------------------------------------------------------------------------------------------
+OUTPUT :
+    Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
+-------------------------------------------------------------------------------------------------------------
 
 """
 
@@ -39,7 +45,7 @@ def parse_args():
     parser.add_argument('-d',"--tdim",dest="tdim", default=256,type = int, help="Dimension of the patch size (Height/Width). Default = 256")
     parser.add_argument('-i',"--inpf",dest="input_fol", help="Input Folder containing the input tiff files.",required = True)
     parser.add_argument('-o',"--outf",dest="output_fol", help="Output folder to store the training .npy files.",required = True)
-    parser.add_argument('-tp',"--threshp", dest="percentage_ones", type = float, default=0.25, help="Percentage ones in each patch. Enter value between 0 - 1 Default = 0.25")
+    parser.add_argument('-tp',"--threshp", dest="percentage_ones", type = float, default=0.25, help="Percentage ones in each patch. Enter value between 0 - 1 Default = 0.0")
     parser.add_argument('-tr',"--threshr", dest="thresh", type = int, default=8, help="Threshold parameter while selecting patches. Enter value between 0 - 10 Default = 8")
     parser.add_argument('-str',"--strides", dest="strides", type = int, default=0, help="Strides taken for tiling to obtain overlapping patches. Default = 0 (for non-overlapping patches)")
     parser.add_argument('-tt',"--traintest",action="store_true", dest="train_test", default=False, help="Save separate files for training and testing. Default = False")
