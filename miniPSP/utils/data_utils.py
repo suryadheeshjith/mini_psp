@@ -147,7 +147,7 @@ def save_npy(args):
 def round_outputs(y_pred):
 
     """
-    Rounding is done across bands. The most likelihood class is given a value of 1 and the rest 0.
+    Rounding is done across bands. The class with the most likelihood is given a value of 1 and the rest 0.
     """
 
     y_pred = np.reshape(y_pred,(-1,5))
