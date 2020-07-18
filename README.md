@@ -106,27 +106,27 @@ The Data folder contains the Bands and the Targets folders. The Bands folder sho
 
 To generate patches, we run the [patch_generator.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/patch_generator.py) file. This file is used to generate patches from the Satellite images and Target Masks. An input directory that contains all these files is accepted as input and each file is parsed and patches are generated for training the model. All the files must be in .tif format. The input directory must contain two folders Bands and Targets, and each must contain the Satellite image bands and Target Masks. For example, you could call your directory 'Data' and it must have a directory structure like this -
 
-├── miniPSP
-│   ├── Data
-│   │   ├── Bands
-│___│___├── Targets
+    ├── miniPSP
+    │   ├── Data
+    │   │   ├── Bands
+    │___│___├── Targets
 
 The npy files will then be saved in the Output directory.
 
 -------------------------------------------------------------------------------------------------------------
 INPUT (Command line Arguments):
-    * Directory containing the Satellite images and Target Masks. (.tif files)
-    * Output Directory
-    * Dimensions of patch size [OPTIONAL][DEFAULT=256]
-    * Stride length [OPTIONAL][DEFAULT=0]
-    * Threshold for selecting patches [OPTIONAL][DEFAULT=8]
-    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
-    * Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
-    * Option for separate train test files [OPTIONAL][DEFAULT=False]
-    * Option for saving details of saved .npy files [OPTIONAL][DEFAULT=False]
+* Directory containing the Satellite images and Target Masks. (.tif files)
+* Output Directory
+* Dimensions of patch size [OPTIONAL][DEFAULT=256]
+* Stride length [OPTIONAL][DEFAULT=0]
+* Threshold for selecting patches [OPTIONAL][DEFAULT=8]
+* Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+* Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+* Option for separate train test files [OPTIONAL][DEFAULT=False]
+* Option for saving details of saved .npy files [OPTIONAL][DEFAULT=False]
 
 OUTPUT :
-    * Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
+* Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
 -------------------------------------------------------------------------------------------------------------
 
 An example command would be
