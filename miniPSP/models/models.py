@@ -6,7 +6,9 @@ from tensorflow.keras import Model
 from utils.model_utils import psp_net_helper, crop
 
 
-def PSP_Net(input_shape = (256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
+def psp_net(input_shape = (256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
+
+    '''PSPNet Implementation'''
 
     inputs = Input(input_shape)
     out = psp_net_helper(inputs,n_classes)
@@ -16,7 +18,9 @@ def PSP_Net(input_shape = (256, 256, 4), n_classes = 5, optimizer = 'adam', loss
     return model
 
 
-def UNET(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
+def unet(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
+
+    '''U-NET Implementation'''
 
     inputs = Input(input_shape)
 
@@ -51,8 +55,9 @@ def UNET(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'c
     return model
 
 
-def FCN(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
+def fcn(input_shape=(256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):
 
+    '''FCN Implementation'''
 
     img_input = Input(input_shape)
     x = img_input

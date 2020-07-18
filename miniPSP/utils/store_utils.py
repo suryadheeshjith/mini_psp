@@ -7,9 +7,7 @@ from .logger_utils import get_logger
 
 def save_details(args,input_shape,target_shape):
 
-    """
-    Saves details of patch generation run
-    """
+    '''Saves details of patch generation run'''
 
     save_path = args.output_fol+"/"+"data_details.txt"
     f= open(save_path,"w+")
@@ -30,9 +28,7 @@ def save_details(args,input_shape,target_shape):
 
 def get_summary_string(model):
 
-    """
-    Returns the string of model.summary() in a temporary variable
-    """
+    '''Returns the string of model.summary() in a temporary variable'''
 
     tmp_smry = StringIO()
     model.summary(print_fn=lambda x: tmp_smry.write(x + '\n'))
@@ -42,9 +38,7 @@ def get_summary_string(model):
 
 def save_model(model, model_path):
 
-    """
-    Saves model JSON and the model weights
-    """
+    '''Saves model JSON and the model weights'''
 
     # Logger
     logger = get_logger()
@@ -64,9 +58,7 @@ def save_model(model, model_path):
 
 def log_eval(y_test,y_pred,n_classes):
 
-    """
-    Logs evaluation metrics of all classes.
-    """
+    '''Logs evaluation metrics of all classes.'''
 
     # Logger
     logger = get_logger()

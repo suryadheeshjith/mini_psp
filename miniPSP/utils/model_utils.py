@@ -6,6 +6,7 @@ from tensorflow.keras.models import load_model,model_from_json
 
 def conv_block(X,filters,block):
 
+    '''A conv block'''
     b = 'block_'+str(block)+'_'
     f1,f2,f3 = filters
     X_skip = X
@@ -29,7 +30,9 @@ def conv_block(X,filters,block):
     X = ReLU(name=b+'relu')(X)
     return X
 
-def base_feature_maps(input_layer):
+def feature_extractor(input_layer):
+
+    '''Feature Extractor'''
 
     # block_1
     base = conv_block(input_layer,[32,32,64],'1')
@@ -39,9 +42,10 @@ def base_feature_maps(input_layer):
     base = conv_block(base,[128,128,256],'3')
     return base
 
-def feature_extractor(input_layer):
+def _psp_net_helper(input_layer):
 
-    base = base_feature_maps(input_layer)
+
+    base = feature_extractor(input_layer)
     size = base.shape[1]
     # red
     red = GlobalAveragePooling2D(name='red_pool')(base)
@@ -66,7 +70,10 @@ def feature_extractor(input_layer):
 
 
 def psp_net_helper(input_layer,n_classes):
-    X = feature_extractor(input_layer)
+
+    '''PSPNet helper function'''
+
+    X = _psp_net_helper(input_layer)
     X = Convolution2D(filters=n_classes,kernel_size=3,padding='same',name='last_conv_3_by_3')(X)
     X = BatchNormalization(name='last_conv_5_by_5_batch_norm')(X)
     X = Activation('softmax',name='last_conv_relu')(X)
@@ -77,6 +84,9 @@ def psp_net_helper(input_layer,n_classes):
 
 
 def crop(o1, o2, i):
+
+    '''Cropping function used in FCN'''
+
     o_shape2 = Model(i, o2).output_shape
 
     output_height2 = o_shape2[1]
@@ -103,6 +113,9 @@ def crop(o1, o2, i):
 
 
 def get_json(save_json_path):
+
+    '''Retrieves the model from the JSON file'''
+
     json_file = open(save_json_path, 'r')
     loaded_model_json = json_file.read()
     json_file.close()

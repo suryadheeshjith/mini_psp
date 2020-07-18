@@ -11,9 +11,7 @@ from utils.logger_utils import get_logger
 
 def normalise_inputs(Inputs):
 
-    """
-    Normalising inputs across bands.
-    """
+    '''Normalising inputs across bands.'''
 
     Inputs = np.array(Inputs)
     nInputs = np.zeros_like(Inputs)
@@ -23,9 +21,7 @@ def normalise_inputs(Inputs):
 
 def get_multi_io(ls, w, h,overlap=False):
 
-    """
-    Patches are given appropriate shape here.
-    """
+    '''Patches are given appropriate shape here.'''
 
     Patches = []
     inputs = []
@@ -49,9 +45,7 @@ def get_multi_io(ls, w, h,overlap=False):
 
 def get_input_file_names(inp_fol):
 
-    """
-    Input file names are obtained here.
-    """
+    '''Input file names are obtained here.'''
 
     # Logger
     logger = get_logger()
@@ -88,9 +82,7 @@ def get_input_file_names(inp_fol):
 
 def save_npy(args):
 
-    """
-    Npy files are saved here.
-    """
+    '''Npy files are saved here.'''
 
     # Logger
     logger = get_logger()
@@ -146,9 +138,7 @@ def save_npy(args):
 
 def round_outputs(y_pred):
 
-    """
-    Rounding is done across bands. The class with the most likelihood is given a value of 1 and the rest 0.
-    """
+    '''Rounding is done across bands. The class with the most likelihood is given a value of 1 and the rest 0.'''
 
     y_pred = np.reshape(y_pred,(-1,5))
     for i in range(y_pred.shape[0]):

@@ -5,9 +5,7 @@ import itertools
 
 def plot_history(history,save_path):
 
-    """
-    Plots and saves accuracy and loss plot using 'history'
-    """
+    '''Plots and saves accuracy and loss plot using 'history'.'''
 
     #ACCURACY PLOT
     plt.plot(history.history['acc'],color='orange',label = 'acc')
@@ -58,9 +56,7 @@ def confusion_matrix_helper(cm, classes,title='Confusion matrix',cmap=plt.cm.Red
 
 def plot_confusion_matrix(cm,class_names,save_path):
 
-    """
-    Plots and saves the confusion matrix.
-    """
+    '''Plots and saves the confusion matrix.'''
 
     fig_size = plt.rcParams["figure.figsize"]
     fig_size[0] = 10

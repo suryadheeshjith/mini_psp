@@ -4,9 +4,7 @@ from sklearn import metrics
 
 def get_iou(target,prediction):
 
-    """
-    Returns Intersection over Union (IoU)
-    """
+    '''Returns Intersection over Union (IoU).'''
 
     intersection = np.logical_and(target, prediction)
     union = np.logical_or(target, prediction)
@@ -14,16 +12,14 @@ def get_iou(target,prediction):
     return iou_score
 
 def get_mean_accuracy(target,prediction):
-    """
-    Returns mean accuracy
-    """
+
+    '''Returns mean accuracy.'''
+
     return np.mean(target==prediction)
 
 def get_class_accuracies(target,prediction,n_classes):
 
-    """
-    Returns class accuracies
-    """
+    '''Returns class accuracies.'''
 
     assert len(target.shape)==4
     assert len(prediction.shape)==4
@@ -40,9 +36,7 @@ def get_class_accuracies(target,prediction,n_classes):
 
 def get_class_iou(target,prediction,n_classes):
 
-    """
-    Returns class IoUs
-    """
+    '''Returns class IoUs.'''
 
     assert len(target.shape)==4
     assert len(prediction.shape)==4
@@ -59,9 +53,7 @@ def get_class_iou(target,prediction,n_classes):
 
 def get_class_f1(target,prediction,n_classes):
 
-    """
-    Returns class F1-scores
-    """
+    '''Returns class F1-scores.'''
 
     assert len(target.shape)==4
     assert len(prediction.shape)==4
@@ -78,9 +70,7 @@ def get_class_f1(target,prediction,n_classes):
 
 def evaluate(target,prediction,n_classes):
 
-    """
-    Returns class accuracies, IoUs and F1-scores
-    """
+    '''Returns class accuracies, IoUs and F1-scores.'''
 
     acc = get_class_accuracies(target,prediction,n_classes)
     iou = get_class_iou(target,prediction,n_classes)
@@ -91,9 +81,8 @@ def evaluate(target,prediction,n_classes):
 
 def conf_matrix(y_test,y_pred):
 
-    """
-    Returns confusion matrix.
-    """
+
+    '''Returns confusion matrix.'''
 
     # Need to remove the 0 values in the target mask if any.
     y_pred = np.reshape(y_pred,(-1,5))

@@ -8,9 +8,8 @@ import os.path as osp
 
 def create_patches(src: rasterio.DatasetReader, size_h, size_w, overlap=0):
 
-    """
-    Patches are created here.
-    """
+    '''Patches are created here.'''
+
 
     if(overlap==0):
         num_patches_w = src.width // size_w
@@ -45,9 +44,9 @@ def create_patches(src: rasterio.DatasetReader, size_h, size_w, overlap=0):
 
 def select_patches(patchesX, patchesY, percentage_ones,random_thresh):
 
-    """
-    Patches are selected here based on a threshold given and the percentage of true pixels (value 1 pixels) required in each patch.
-    """
+
+    '''Patches are selected here based on a threshold given and the percentage of true pixels (value 1 pixels) required in each patch.'''
+
 
     retX = []
     retY = []
@@ -65,9 +64,7 @@ def select_patches(patchesX, patchesY, percentage_ones,random_thresh):
 
 def write_single_patch(data, out_file: str, height, width, crs, transform, windowI, windowJ):
 
-    """
-    Writes a single patch.
-    """
+    '''Writes a single patch.'''
 
     patch_width = data.shape[1]
     patch_height = data.shape[0]
@@ -95,9 +92,7 @@ def write_single_patch(data, out_file: str, height, width, crs, transform, windo
 
 def save_masks(save_path, y_pred):
 
-    """
-    Saving output prediction masks.
-    """
+    '''Saving output prediction masks.'''
 
     # A sample file used to provide various information to the predicted mask during save.
     sample_path = None

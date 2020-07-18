@@ -15,7 +15,7 @@ import os.path as osp
 from utils.logger_utils import get_logger
 from utils.plot_utils import plot_history
 from utils.store_utils import get_summary_string, save_model
-from models.models import PSP_Net, UNET, FCN
+from models.models import psp_net, train, fcn
 
 
 
@@ -46,21 +46,21 @@ def get_model(model_name, input_shape, n_classes):
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=0.001,decay_steps=100000,decay_rate=0.96,staircase=True)
         optimizer = SGD(learning_rate=lr_schedule, momentum=0.9, nesterov=False)
         loss = 'categorical_crossentropy'
-        model = PSP_Net(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
+        model = psp_net(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
 
     # UNET
     elif(model_name.lower()=='unet'):
-        logger.info("UNET model used")
+        logger.info("U-NET model used")
         optimizer = 'adam'
         loss = 'categorical_crossentropy'
-        model = UNET(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
+        model = unet(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
 
     # FCN
     elif(model_name.lower()=='fcn'):
         logger.info("FCN model used")
         optimizer = 'adam'
         loss = 'categorical_crossentropy'
-        model = FCN(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
+        model = fcn(input_shape=input_shape, optimizer = optimizer, loss = loss, n_classes=n_classes)
 
     else:
         logger.info("Enter valid model name")
