@@ -44,6 +44,7 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
     ```conda create -n ISRO python=3.6.10```
 
 3. Enter the cloned directory
+
     ```cd ISRO_Repo```
 
 4. Install the required packages from requirements.txt.
