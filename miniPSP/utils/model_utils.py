@@ -7,6 +7,7 @@ from tensorflow.keras.models import load_model,model_from_json
 def conv_block(X,filters,block):
 
     '''A conv block'''
+    
     b = 'block_'+str(block)+'_'
     f1,f2,f3 = filters
     X_skip = X

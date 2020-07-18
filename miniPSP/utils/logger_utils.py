@@ -8,9 +8,7 @@ DEFAULT_LOGGING_DIR = "logs"
 fh = None
 ch = None
 
-"""
-All Logging related functions here. Logs are saved in directory 'logs' and the name of the file is based on the current time.
-"""
+"""All Logging related functions here. Logs are saved in directory 'logs' and the name of the file is based on the current time."""
 
 def update_default_level(default_level):
     global DEFAULT_LEVEL
