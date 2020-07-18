@@ -39,11 +39,14 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
 
     ```git clone https://github.com/suryadheeshjith/ISRO_Repo.git```
 
-2. Create a new environment for this project [OPTIONAL]. If you use conda, create an environment using this command.
+2. [OPTIONAL STEP] Create a new environment for this project. If you use conda, create an environment using this command.
 
     ```conda create -n ISRO python=3.6.10```
 
-3. Install the required packages from requirements.txt.
+3. Enter the cloned directory
+    ```cd ISRO_Repo```
+
+4. Install the required packages from requirements.txt.
 
     ```pip install -r requirements.txt```
 
@@ -66,7 +69,7 @@ Required Packages :
 
 
 
-    ```
+
     .
     ├── README.md
     ├── figures
@@ -90,9 +93,12 @@ Required Packages :
     │   ├── test.py
     │   ├── train.py
     └── requirements.txt
-    ```
 
-The Data folder contains the Bands and the Targets folders. The Bands folder should contain the satellite image tiff files and the Targets should contain the target masks for each class. Once all the files are in place, we crop our images into patches.
+
+The Data folder contains the Bands and the Targets folders. The Bands folder should contain the satellite image tiff files and the Targets should contain the target masks for each class. Once all the files are in place, we crop our images into patches and then perform training and testing. So first off, change directories to the /miniPSP directory.
+
+```cd miniPSP```
+
 
 
 ### Patch Generation
