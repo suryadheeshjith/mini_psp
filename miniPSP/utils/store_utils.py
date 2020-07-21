@@ -1,13 +1,18 @@
 import os.path as osp
 from io import StringIO
+import numpy as np
 
 from .metric_utils import evaluate
 from .logger_utils import get_logger
 
 
-def save_details(args,input_shape,target_shape):
+def save_details(args,Inputs,Output):
 
     '''Saves details of patch generation run'''
+
+    input_shape = np.array(Inputs).shape
+    if(Output):
+        target_shape = np.array(Output).shape
 
     save_path = args.output_fol+"/"+"data_details.txt"
     f= open(save_path,"w+")
@@ -17,12 +22,17 @@ def save_details(args,input_shape,target_shape):
     f.write("Output folder : {}\n".format(osp.abspath(args.output_fol)))
     f.write("Strides taken : {}\n".format(args.strides))
 
-    if(args.thresh>0):
+    if(Output and args.thresh>0 and args.percentage_ones>0):
         f.write("Selecting Patches with Percentage ones and threshold : {},{}\n".format(args.percentage_ones,args.thresh))
+
+    else:
+        f.write("There are no target files, hence no selection done. Threshold values ignored.\n")
 
 
     f.write('Input shape : {}\n'.format(input_shape))
-    f.write('Target shape : {}'.format(target_shape))
+
+    if(Output):
+        f.write('Target shape : {}'.format(target_shape))
     f.close()
 
 

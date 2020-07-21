@@ -7,7 +7,7 @@ confusion matrix and the output masks can also be saved.
 -------------------------------------------------------------------------------------------------------------
 INPUT (Command line Arguments):
     * Input npy file path corresponding to the patches generated from the satellite images.
-    * Output npy file path corresponding to the patches generated from the target masks.
+    * Output npy file path corresponding to the patches generated from the target masks. [OPTIONAL]
     * Model JSON path
     * Model weights path
     * Model name [OPTIONAL][DEFAULT='psp']
@@ -50,7 +50,7 @@ def parse_args():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-i',"--inp",dest="input_npy", help="Input npy file path.",required = True)
-    parser.add_argument('-o',"--out",dest="output_npy", help="Output npy file path.",required = True)
+    parser.add_argument('-o',"--out",dest="output_npy", help="Output npy file path.",default=None)
     parser.add_argument('-mj',"--mjpath",dest="mjpath", help="Model JSON file path.", required = True)
     parser.add_argument('-mw',"--mwpath",dest="mwpath", help="Model weights file path.", required = True)
     parser.add_argument('-mn',"--mname",dest="mname", help="Model name. Options : psp, unet or fcn. Default = psp",default = 'psp')
@@ -90,12 +90,16 @@ def test(args, class_names):
 
     # Load data files
     X_test = np.load(input_npy)
-    y_test = np.load(output_npy)
-
-    X_test, y_test = shuffle(X_test,y_test,random_state=42)
+    if(output_npy):
+        y_test = np.load(output_npy)
+        X_test, y_test = shuffle(X_test,y_test,random_state=42)
 
     if(args.train_test):
-        X_train, X_test, y_train, y_test = train_test_split(X_test, y_test, test_size=0.2, random_state=42)
+        if(output_npy):
+            X_train, X_test, y_train, y_test = train_test_split(X_test, y_test, test_size=0.2, random_state=42)
+        else:
+            logger.info("Relevant Output .npy file not given for train test split")
+            exit("0")
 
     # Predict
     y_pred = model.predict(X_test)
@@ -103,7 +107,8 @@ def test(args, class_names):
 
     # Reshape
     y_pred = np.reshape(y_pred,(-1,256,256,5))
-    y_test = np.reshape(y_test,(-1,256,256,5))
+    if(output_npy):
+        y_test = np.reshape(y_test,(-1,256,256,5))
 
     # Obtain most likely class for each pixel and set to value 1
     y_pred = round_outputs(y_pred)
@@ -113,17 +118,17 @@ def test(args, class_names):
         logger.info("Logging evaluated metrics")
         log_eval(y_test,y_pred,n_classes=len(class_names))
 
+    # Save masks
+    if(args.save_masks):
+        logger.info("Saving masks to {}".format(osp.abspath(osp.dirname(input_npy))))
+        save_masks(osp.dirname(input_npy), y_pred)
+
     # Confusion matrix
     if(args.plot_conf):
         cm = conf_matrix(y_test,y_pred)
         logger.info("\nConfusion matrix : ")
         logger.info(cm)
         plot_confusion_matrix(cm,class_names,model_path)
-
-    # Save masks
-    if(args.save_masks):
-        logger.info("Saving masks")
-        save_masks(model_path, y_pred)
 
 if __name__ == '__main__':
 

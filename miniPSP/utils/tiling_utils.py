@@ -102,6 +102,12 @@ def save_masks(save_path, y_pred):
             sample_path = osp.join(sam_path,i)
             break
     if(not sample_path):
+        sam_path = 'Data/Bands'
+        for i in os.listdir(sam_path):
+            if(i.endswith("tif")):
+                sample_path = osp.join(sam_path,i)
+                break
+    if(not sample_path):
         print("No valid reference path!")
         exit(0)
 

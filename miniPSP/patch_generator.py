@@ -12,7 +12,7 @@ must contain two folders Bands and Targets, and each must contain the Satellite 
 The npy files will then be saved in the Output directory.
 -------------------------------------------------------------------------------------------------------------
 INPUT (Command line Arguments):
-    * Directory containing the Satellite images and Target Masks. (.tif files)
+    * Directory containing the Satellite images and Target Masks (Optional). (.tif files)
     * Output Directory
     * Dimensions of patch size [OPTIONAL][DEFAULT=256]
     * Stride length [OPTIONAL][DEFAULT=0]
@@ -26,6 +26,8 @@ OUTPUT :
     Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
 -------------------------------------------------------------------------------------------------------------
 
+
+NOTE : If targets need not be patched, you need not include any .tif files in the Targets folder.
 """
 
 from __future__ import absolute_import
@@ -45,8 +47,8 @@ def parse_args():
     parser.add_argument('-d',"--tdim",dest="tdim", default=256,type = int, help="Dimension of the patch size (Height/Width). Default = 256")
     parser.add_argument('-i',"--inpf",dest="input_fol", help="Input Folder containing the input tiff files.",required = True)
     parser.add_argument('-o',"--outf",dest="output_fol", help="Output folder to store the training .npy files.",required = True)
-    parser.add_argument('-tp',"--threshp", dest="percentage_ones", type = float, default=0.25, help="Percentage ones in each patch. Enter value between 0 - 1 Default = 0.0")
-    parser.add_argument('-tr',"--threshr", dest="thresh", type = int, default=8, help="Threshold parameter while selecting patches. Enter value between 0 - 10 Default = 8")
+    parser.add_argument('-tr',"--threshr", dest="thresh", type = int, default=8, help="Random threshold for selecting patches. Enter value between 0 - 10 Default = 8")
+    parser.add_argument('-tp',"--threshp", dest="percentage_ones", type = float, default=0.25, help="Lower bound of true values in target masks for selecting patches. Enter float value between 0 - 1 Default = 0.0")
     parser.add_argument('-str',"--strides", dest="strides", type = int, default=0, help="Strides taken for tiling to obtain overlapping patches. Default = 0 (for non-overlapping patches)")
     parser.add_argument('-tt',"--traintest",action="store_true", dest="train_test", default=False, help="Save separate files for training and testing. Default = False")
     parser.add_argument('-s',"--save",action="store_true", dest="save_details", default=False, help="Save details of patches generated. Default = False")

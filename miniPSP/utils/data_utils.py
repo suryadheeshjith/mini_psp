@@ -75,8 +75,8 @@ def get_input_file_names(inp_fol):
         exit(0)
 
     if(not target_files):
-        logger.info("No relevant files in Target directory")
-        exit(0)
+        logger.info("No relevant targets given, only patching satellite images... ")
+
 
     return band_files, target_files
 
@@ -96,20 +96,27 @@ def save_npy(args):
     # Overlapping or non-overlapping patches
     if(args.strides>0):
         Inputs = get_multi_io(band_files,width,height,overlap=args.strides)
-        Output = get_multi_io(target_files,width,height,overlap=args.strides)
+        if(target_files):
+            Output = get_multi_io(target_files,width,height,overlap=args.strides)
 
     else:
         Inputs = get_multi_io(band_files,width,height,overlap=0)
-        Output = get_multi_io(target_files,width,height,overlap=0)
+        if(target_files):
+            Output = get_multi_io(target_files,width,height,overlap=0)
 
     # Normalising Inputs
     Inputs = normalise_inputs(Inputs)
 
+    # Setting Output to False if empty Targets folder
+    if(not target_files):
+        Output = False
 
     # Selecting patches
-    if(args.thresh>0):
+    if(Output and args.thresh>0 and args.percentage_ones>0):
         Inputs,Output = select_patches(Inputs,Output,args.percentage_ones,args.thresh)
 
+    elif(not Output and args.percentage_ones>0 and args.thresh>0):
+        logger.info("There are no target files, hence no selection done. Ignoring threshold values...")
 
     #Saving input
     if(not osp.exists(args.output_fol)):
@@ -117,22 +124,27 @@ def save_npy(args):
 
     # Saving separate files for training and testing if required. (Can help avoid memory crashes)
     if(args.train_test):
-        X_train, X_test, y_train, y_test = train_test_split(Inputs, Output, test_size=0.2, random_state=42)
-        np.save(args.output_fol+"/"+'input8_train.npy',X_train)
-        np.save(args.output_fol+"/"+'output8_train.npy',y_train)
-        np.save(args.output_fol+"/"+'input8_test.npy',X_test)
-        np.save(args.output_fol+"/"+'output8_test.npy',y_test)
+        if(Output):
+            X_train, X_test, y_train, y_test = train_test_split(Inputs, Output, test_size=0.2, random_state=42)
+            np.save(args.output_fol+"/"+'input8_train.npy',X_train)
+            np.save(args.output_fol+"/"+'output8_train.npy',y_train)
+            np.save(args.output_fol+"/"+'input8_test.npy',X_test)
+            np.save(args.output_fol+"/"+'output8_test.npy',y_test)
+        else:
+            logger.info("No target files for train test save! Please add relevant files.")
+            exit("0")
 
 
     else:
         np.save(args.output_fol+"/"+'input',Inputs)
-        np.save(args.output_fol+"/"+'output',Output)
+        if(Output):
+            np.save(args.output_fol+"/"+'output',Output)
 
 
 
     if(args.save_details):
         logger.info("Saving data details to data_details.txt in "+args.output_fol)
-        save_details(args,np.array(Inputs).shape,np.array(Output).shape)
+        save_details(args,Inputs,Output)
 
 
 
