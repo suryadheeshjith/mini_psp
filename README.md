@@ -115,19 +115,19 @@ The npy files will then be saved in the Output directory.
 
 
 INPUT (Command line Arguments):
-* Directory containing the Satellite images and Target Masks. (.tif files)
+* Directory containing the Satellite images and Target Masks (Optional). (.tif files)
 * Output Directory
 * Dimensions of patch size [OPTIONAL][DEFAULT=256]
 * Stride length [OPTIONAL][DEFAULT=0]
-* Threshold for selecting patches [OPTIONAL][DEFAULT=8]
-* Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
-* Percentage ones for selecting patches [OPTIONAL][DEFAULT=0]
+* Random Threshold for selecting patches. Enter value between 0-10. [OPTIONAL][DEFAULT=8]
+* Lower bound of true values in target masks for selecting patches. Enter float value between 0 - 1 [OPTIONAL][DEFAULT=0.0]
 * Option for separate train test files [OPTIONAL][DEFAULT=False]
 * Option for saving details of saved .npy files [OPTIONAL][DEFAULT=False]
 
 OUTPUT :
 * Npy files corresponding to the input. An optional data_details text file corresponding to the details of saved files.
 
+NOTE : If targets need not be patched, you need not include any .tif files in the Targets folder.
 
 An example command would be
 
@@ -141,7 +141,7 @@ Training the model will save a JSON file, a best weights and final weights file.
 
 INPUT (Command line Arguments):
 * Input npy file path corresponding to the patches generated from the satellite images
-* Output npy file path corresponding to the patches generated from the target masks
+* Output npy file path corresponding to the patches generated from the target masks. [OPTIONAL]
 * Model path
 * Model name [OPTIONAL][DEFAULT='psp']
 * Number of Epochs [OPTIONAL][DEFAULT=50]
