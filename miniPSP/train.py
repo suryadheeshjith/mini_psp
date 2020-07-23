@@ -113,11 +113,9 @@ def train(args):
     # Reshape for training
     dataset[1] = np.reshape(dataset[1],(-1,dataset[1].shape[1]*dataset[1].shape[2],n_classes))
 
-    # Shuffle
-    dataset[0], dataset[1] = shuffle(dataset[0],dataset[1],random_state=42)
-
     # Train test split
     if(args.train_test):
+        dataset[0], dataset[1] = shuffle(dataset[0],dataset[1],random_state=42)
         X_train, X_test, y_train, y_test = train_test_split(dataset[0], dataset[1], test_size=0.2, random_state=42)
         dataset[0] = X_train
         dataset[1]= y_train

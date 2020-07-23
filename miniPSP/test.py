@@ -92,10 +92,11 @@ def test(args, class_names):
     X_test = np.load(input_npy)
     if(output_npy):
         y_test = np.load(output_npy)
-        X_test, y_test = shuffle(X_test,y_test,random_state=42)
+
 
     if(args.train_test):
         if(output_npy):
+            X_test, y_test = shuffle(X_test,y_test,random_state=42)
             X_train, X_test, y_train, y_test = train_test_split(X_test, y_test, test_size=0.2, random_state=42)
         else:
             logger.info("Relevant Output .npy file not given for train test split")
@@ -113,10 +114,14 @@ def test(args, class_names):
     # Obtain most likely class for each pixel and set to value 1
     y_pred = round_outputs(y_pred)
 
+    #np.round(y_pred)
+
     # Evaluate model
     if(args.eval):
-        logger.info("Logging evaluated metrics")
-        log_eval(y_test,y_pred,n_classes=len(class_names))
+        logger.info("\nLogging evaluated metrics")
+        n_classes = len(class_names)
+        cm = conf_matrix(y_test,y_pred,n_classes)
+        log_eval(y_test,y_pred,n_classes,cm)
 
     # Save masks
     if(args.save_masks):
@@ -125,9 +130,7 @@ def test(args, class_names):
 
     # Confusion matrix
     if(args.plot_conf):
-        cm = conf_matrix(y_test,y_pred)
-        logger.info("\nConfusion matrix : ")
-        logger.info(cm)
+        logger.info("\nPlotting and saving Confusion matrix.")
         plot_confusion_matrix(cm,class_names,model_path)
 
 if __name__ == '__main__':
