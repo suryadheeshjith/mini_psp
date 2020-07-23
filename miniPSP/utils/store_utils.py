@@ -2,7 +2,7 @@ import os.path as osp
 from io import StringIO
 import numpy as np
 
-from .metric_utils import evaluate
+from .metric_utils import evaluate, eval_conf_matrix
 from .logger_utils import get_logger
 
 
@@ -66,18 +66,19 @@ def save_model(model, model_path):
     model.save_weights(save_weight_path)
 
 
-def log_eval(y_test,y_pred,n_classes):
+def log_eval(y_test,y_pred,n_classes,cm):
 
     '''Logs evaluation metrics of all classes.'''
 
     # Logger
     logger = get_logger()
 
-    acc,iou,f1 = evaluate(y_test,y_pred,n_classes)
-    logger.info("Class\t\tAccuracy")
-    for k in acc.keys():
-        logger.info("{}\t\t{}".format(k,acc[k]))
+    # acc,iou,f1 = evaluate(y_test,y_pred,n_classes)
+    # logger.info("Class\t\tAccuracy")
+    # for k in acc.keys():
+    #     logger.info("{}\t\t{}".format(k,acc[k]))
 
+    iou,f1 = evaluate(y_test,y_pred,n_classes)
     logger.info("\n\n")
     logger.info("Class\t\tIoU")
     for k in iou.keys():
@@ -87,3 +88,19 @@ def log_eval(y_test,y_pred,n_classes):
     logger.info("Class\t\tF1-Score")
     for k in f1.keys():
         logger.info("{}\t\t{}".format(k,f1[k]))
+
+    logger.info("\nConfusion matrix : \n")
+    logger.info(cm)
+    logger.info("\n\n")
+    ovAc, kappa, prod_acc, user_acc = eval_conf_matrix(cm,n_classes)
+
+    logger.info("Class\t\tProducer Accuracy")
+    for i,k in enumerate(prod_acc):
+        logger.info("{}\t\t{}".format(i,k))
+    logger.info("\n\n")
+    logger.info("Class\t\tUser Accuracy")
+    for i,k in enumerate(user_acc):
+        logger.info("{}\t\t{}".format(i,k))
+
+    logger.info("\nOverall Accuracy : {}".format(ovAc))
+    logger.info("\nKappa Coefficient : {}".format(kappa))

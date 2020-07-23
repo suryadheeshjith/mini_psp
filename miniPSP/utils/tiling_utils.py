@@ -74,20 +74,22 @@ def write_single_patch(data, out_file: str, height, width, crs, transform, windo
     else:
         st = 'r+'
 
-    with rasterio.open(
-        out_file,
-        st,
-        driver='GTiff',
-        height=height,
-        width=width,
-        count=1,
-        dtype=data.dtype,
-        crs=crs,
-        transform=transform
-    ) as dst:
-        dst.write(data, window=Window(windowJ*patch_width,
-                                      windowI*patch_height, patch_width, patch_height), indexes=1)
-
+    try:
+        with rasterio.open(
+            out_file,
+            st,
+            driver='GTiff',
+            height=height,
+            width=width,
+            count=1,
+            dtype=data.dtype,
+            crs=crs,
+            transform=transform
+        ) as dst:
+            dst.write(data, window=Window(windowJ*patch_width,
+                                        windowI*patch_height, patch_width, patch_height), indexes=1)
+    except:
+        pass
 
 
 def save_masks(save_path, y_pred):
