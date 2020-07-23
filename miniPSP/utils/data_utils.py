@@ -3,6 +3,7 @@ import rasterio
 import os
 import os.path as osp
 from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 
 from .store_utils import save_details
 from .tiling_utils import create_patches, select_patches
@@ -62,12 +63,17 @@ def get_input_file_names(inp_fol):
             band_files.append(band_dir+"/"+band_file)
         else:
             logger.info("File not considered : "+band_file + " in "+band_dir)
-
+    band_files.sort()
+    logger.info("Band Files : {}".format(band_files))
     for mask_file in os.listdir(target_dir):
         if(mask_file.endswith(".tif")):
             target_files.append(target_dir+"/"+mask_file)
         else:
             logger.info("File not considered : "+mask_file + " in "+target_dir)
+
+    if(target_files):
+        target_files.sort()
+        logger.info("Target Files : {}".format(target_files))
 
 
     if(not band_files):
@@ -125,6 +131,7 @@ def save_npy(args):
     # Saving separate files for training and testing if required. (Can help avoid memory crashes)
     if(args.train_test):
         if(Output):
+            Inputs, Output = shuffle(Inputs, Output,random_state=42)
             X_train, X_test, y_train, y_test = train_test_split(Inputs, Output, test_size=0.2, random_state=42)
             np.save(args.output_fol+"/"+'input8_train.npy',X_train)
             np.save(args.output_fol+"/"+'output8_train.npy',y_train)
