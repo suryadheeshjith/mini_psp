@@ -14,7 +14,7 @@ def save_details(args,Inputs,Output):
     if(Output):
         target_shape = np.array(Output).shape
 
-    save_path = args.output_fol+"/"+"data_details.txt"
+    save_path = osp.join(args.output_fol,"data_details.txt")
     f= open(save_path,"w+")
 
     f.write("\nData details : \n\n")

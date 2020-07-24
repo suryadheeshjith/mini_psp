@@ -15,7 +15,7 @@ def plot_history(history,save_path):
     plt.xlabel('epoch')
     plt.ylabel('accuracy')
     plt.legend()
-    plt.savefig(save_path+"/"+'accuracy.png')
+    plt.savefig(osp.join(save_path,'accuracy.png'))
     plt.show()
 
     #LOSS PLOT
@@ -25,7 +25,7 @@ def plot_history(history,save_path):
     plt.xlabel('epoch')
     plt.ylabel('loss')
     plt.legend()
-    plt.savefig(save_path+"/"+'loss.png')
+    plt.savefig(osp.join(save_path,'loss.png'))
     plt.show()
 
 
@@ -65,5 +65,5 @@ def plot_confusion_matrix(cm,class_names,save_path):
     np.set_printoptions(precision=2)
     plt.figure()
     confusion_matrix_helper(cm, classes=class_names, title='Normalized confusion matrix')
-    plt.savefig(save_path+"/"+'confusion_matrix.png')
+    plt.savefig(osp.join(save_path,'confusion_matrix.png'))
     plt.show()

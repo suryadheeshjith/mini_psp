@@ -54,20 +54,20 @@ def get_input_file_names(inp_fol):
     # Getting input file names
     band_files = []
     target_files = []
-    band_dir = inp_fol +"/"+ "Bands"
-    target_dir = inp_fol +"/"+ "Targets"
+    band_dir = osp.join(inp_fol,"Bands")
+    target_dir = osp.join(inp_fol,"Targets")
 
     # Storing file paths
     for band_file in os.listdir(band_dir):
         if(band_file.endswith(".tif")):
-            band_files.append(band_dir+"/"+band_file)
+            band_files.append(osp.join(band_dir,band_file))
         else:
             logger.info("File not considered : "+band_file + " in "+band_dir)
     band_files.sort()
     logger.info("Band Files : {}".format(band_files))
     for mask_file in os.listdir(target_dir):
         if(mask_file.endswith(".tif")):
-            target_files.append(target_dir+"/"+mask_file)
+            target_files.append(osp.join(target_dir,mask_file))
         else:
             logger.info("File not considered : "+mask_file + " in "+target_dir)
 
@@ -133,19 +133,19 @@ def save_npy(args):
         if(Output):
             Inputs, Output = shuffle(Inputs, Output,random_state=42)
             X_train, X_test, y_train, y_test = train_test_split(Inputs, Output, test_size=0.2, random_state=42)
-            np.save(args.output_fol+"/"+'input8_train.npy',X_train)
-            np.save(args.output_fol+"/"+'output8_train.npy',y_train)
-            np.save(args.output_fol+"/"+'input8_test.npy',X_test)
-            np.save(args.output_fol+"/"+'output8_test.npy',y_test)
+            np.save(osp.join(args.output_fol,'input8_train.npy',X_train))
+            np.save(osp.join(args.output_fol,'output8_train.npy',y_train))
+            np.save(osp.join(args.output_fol,'input8_test.npy',X_test))
+            np.save(osp.join(args.output_fol,'output8_test.npy',y_test))
         else:
             logger.info("No target files for train test save! Please add relevant files.")
             exit("0")
 
 
     else:
-        np.save(args.output_fol+"/"+'input',Inputs)
+        np.save(osp.join(args.output_fol,'input'),Inputs)
         if(Output):
-            np.save(args.output_fol+"/"+'output',Output)
+            np.save(osp.join(args.output_fol,'output'),Output)
 
 
 
