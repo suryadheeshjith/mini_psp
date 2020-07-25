@@ -25,8 +25,12 @@ def save_details(args,Inputs,Output):
     if(Output and args.thresh>0 and args.percentage_ones>0):
         f.write("Selecting Patches with Percentage ones and threshold : {},{}\n".format(args.percentage_ones,args.thresh))
 
-    else:
+    elif((not Output) and (args.percentage_ones>0 and args.thresh>0)):
         f.write("There are no target files, hence no selection done. Threshold values ignored.\n")
+
+    elif(Output and (args.thresh==0 or args.percentage_ones==0)):
+        f.write("All Patches considered.\n")
+
 
 
     f.write('Input shape : {}\n'.format(input_shape))

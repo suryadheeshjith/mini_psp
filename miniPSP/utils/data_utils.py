@@ -121,8 +121,11 @@ def save_npy(args):
     if(Output and args.thresh>0 and args.percentage_ones>0):
         Inputs,Output = select_patches(Inputs,Output,args.percentage_ones,args.thresh)
 
-    elif(not Output and args.percentage_ones>0 and args.thresh>0):
+    elif((not Output) and (args.percentage_ones>0 and args.thresh>0)):
         logger.info("There are no target files, hence no selection done. Ignoring threshold values...")
+
+    elif(Output and (args.thresh==0 or args.percentage_ones==0)):
+        logger.info("All Patches considered.\n")
 
     #Saving input
     if(not osp.exists(args.output_fol)):
