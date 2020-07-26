@@ -63,6 +63,6 @@ def plot_confusion_matrix(cm,class_names,save_path):
     plt.rcParams["figure.figsize"] = fig_size
     np.set_printoptions(precision=2)
     plt.figure()
-    confusion_matrix_helper(cm, classes=class_names, title='Normalized confusion matrix')
+    confusion_matrix_helper(cm, classes=class_names, title='Confusion matrix')
     plt.savefig(osp.join(save_path,'confusion_matrix.png'))
     plt.show()
