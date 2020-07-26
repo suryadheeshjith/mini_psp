@@ -19,8 +19,7 @@ setup(name="mini_psp",
             "matplotlib==3.2.1",
             "json5==0.8.5",
             "tensorflow==1.15.2",
-            "logger==1.4",
-            "pytest"],
+            "logger==1.4"],
         extras_require={
 
       }
