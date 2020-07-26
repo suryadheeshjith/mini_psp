@@ -47,23 +47,10 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
 
     ```cd ISRO_Repo```
 
-4. Install the required packages from requirements.txt.
+4. Install the required packages
 
-    ```pip install -r requirements.txt```
+    ```python3 setup.py install```
 
-
-Required Packages :
-
-* Python==3.6.10
-* numpy==1.18.1
-* argparse
-* scikit-learn==0.22.1
-* scipy==1.4.1
-* rasterio==1.1.5
-* matplotlib==3.2.1
-* json5==0.8.5
-* tensorflow==1.15.2
-* logger==1.4
 
 
 #### Repository Structure
