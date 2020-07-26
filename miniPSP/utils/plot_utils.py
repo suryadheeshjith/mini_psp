@@ -33,9 +33,7 @@ def plot_history(history,save_path):
 def confusion_matrix_helper(cm, classes,title='Confusion matrix',cmap=plt.cm.Reds):
 
 
-    cm = cm.astype('float') / cm.sum(axis=0)
-    cm = np.round(cm,decimals=10)
-    print("Normalized confusion matrix")
+    print("Confusion matrix")
 
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
