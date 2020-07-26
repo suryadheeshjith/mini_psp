@@ -83,7 +83,11 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
     └── requirements.txt
 
 
-The Data folder contains the Bands and the Targets folders. The Bands folder should contain the satellite image tiff files and the Targets should contain the target masks for each class. Once all the files are in place, we crop our images into patches and then perform training and testing. So first off, change directories to the /miniPSP directory.
+The Data folder contains the Bands and the Targets folders. The Bands folder should contain the satellite image tiff files and the Targets should contain the target masks for each class.
+
+### Running Model
+
+Once all the files are in place, we crop our images into patches and then perform training and testing. So first off, change directories to the /miniPSP directory.
 
 ```cd miniPSP```
 
