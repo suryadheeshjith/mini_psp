@@ -164,7 +164,7 @@ INPUT (Command line Arguments):
 
 OUTPUT :
 * Evaluate the model based on Accuracy, IoU and F1-score
-* Saved normalised confusion matrix
+* Saved confusion matrix
 * Saved output masks
 
 
