@@ -127,9 +127,9 @@ def eval_conf_matrix(cm,n_classes):
     # Kappa coefficient
     kappa = (total*sum - gc)/(total*total - gc)
 
-    # print("Total pred :",total_pred)
-    # print("Total target :",total_test)
-    # print("Total :",total)
+    print("Total pred :",total_pred)
+    print("Total target :",total_test)
+    print("Total :",total)
     return ovAc, kappa, prod_acc, user_acc
 
 
@@ -148,12 +148,22 @@ if __name__=='__main__':
 
     #cm = conf_matrix(target,prediction,n_classes)
 
-    cm = [  [119397,540,304,12182,7327],
-            [243,7169,43,4319,1737],
-            [134,0,5776,721,200],
-            [827,2,28,7655,811],
-            [793,0,57,278,31494]
+    #Combined1
+    # cm = [  [119397,540,304,12182,7327],
+    #         [243,7169,43,4319,1737],
+    #         [134,0,5776,721,200],
+    #         [827,2,28,7655,811],
+    #         [793,0,57,278,31494]
+    #     ]
+
+    #Combined2
+    cm = [      [119320,540,372,12259,7327],
+                [243,7169,43,4319,1737],
+                [266,0,6445,1636,248],
+                [827,2,28,7655,811],
+                [793,0,57,278,31494]
         ]
+
 
 
     ovAc, kappa, prod_acc, user_acc = eval_conf_matrix(cm,n_classes)
