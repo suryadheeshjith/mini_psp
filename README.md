@@ -1,4 +1,4 @@
-
+[![Build Status](https://travis-ci.com/suryadheeshjith/ISRO_Repo.svg?token=knvpVbu96NR4wtBr8v1E&branch=master)](https://travis-ci.com/suryadheeshjith/ISRO_Repo)
 # Mini-PSPNet for Urban Land-Use/Land-Cover Classification of Remote Sensing images
 
 ## Introduction
