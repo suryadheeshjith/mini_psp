@@ -1,12 +1,12 @@
 from setuptools import find_packages, setup
 
 
-setup(name="ISRO_Repo",
-      version="1.0",
+setup(name="mini_psp",
+      version="1.0.0",
       description="Mini-PSPNet for Urban Land-Use/Land-Cover Classification of Remote Sensing images",
       author="Surya Dheeshjith",
       author_email='Surya.Dheeshjith@gmail.com',
-      platforms=["any"], 
+      platforms=["any"],
       url="https://github.com/suryadheeshjith/ISRO_Repo",
       packages=find_packages(exclude=["figures"]),
       install_requires=[
@@ -19,5 +19,9 @@ setup(name="ISRO_Repo",
             "matplotlib==3.2.1",
             "json5==0.8.5",
             "tensorflow==1.15.2",
-            "logger==1.4"],
+            "logger==1.4"]
+        extras_require={
+            
+      }
+
 )
