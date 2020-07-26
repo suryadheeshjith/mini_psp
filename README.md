@@ -55,32 +55,30 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
 
 #### Repository Structure
 
-
-
-
     .
     ├── README.md
     ├── figures
     ├── miniPSP
     │   ├── Data
     │   │   ├── Bands
-    │   │   ├── Targets
+    │   │   └── Targets
     │   ├── models
     │   │   ├── __init__.py
     │   │   └── models.py
-    │   |── utils
-    │   │   ├── __init__.py
-    │   │   ├── data_utils.py
-    │   │   ├── logger_utils.py
-    │   │   ├── metric_utils.py
-    │   │   ├── model_utils.py
-    │   │   ├── plot_utils.py
-    │   │   ├── store_utils.py
-    │   │   └── tiling_utils.py
     │   ├── patch_generator.py
     │   ├── test.py
     │   ├── train.py
-    └── requirements.txt
+    │   └── utils
+    │       ├── __init__.py
+    │       ├── data_utils.py
+    │       ├── logger_utils.py
+    │       ├── metric_utils.py
+    │       ├── model_utils.py
+    │       ├── plot_utils.py
+    │       ├── store_utils.py
+    │       └── tiling_utils.py
+    ├── requirements.txt
+    └── setup.py
 
 
 The Data folder contains the Bands and the Targets folders. The Bands folder should contain the satellite image tiff files and the Targets should contain the target masks for each class.
