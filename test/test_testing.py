@@ -18,7 +18,7 @@ import os.path as osp
 # DEFAULTS
 ################################################################################
 class_names = ['1','2']
-Data_fol  = '/Data'
+Data_fol  = 'test/Data'
 Input_npy_file = 'sample_input.npy'
 Output_npy_file = 'sample_output.npy'
 json_file = 'sample_model.json'

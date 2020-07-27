@@ -17,10 +17,10 @@ import os.path as osp
 # DEFAULTS
 ################################################################################
 model_list = ['unet','fcn','psp']
-Data_fol  = '/Data'
+Data_fol  = 'test/Data'
 Input_npy_file = 'sample_input.npy'
 Output_npy_file = 'sample_output.npy'
-model_path = '/Data'
+model_path = 'test/Data'
 model_name = 'psp'
 epochs = 2
 batch_size = 1
