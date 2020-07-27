@@ -12,4 +12,4 @@ install:
 # command to run tests
 script: pytest --cov=./
 after_success:
-  - codecov # submit coverage
+  - bash <(curl -s https://codecov.io/bash) -t 5957e797-d903-46a8-b062-493bfd81f349 # submit coverage
