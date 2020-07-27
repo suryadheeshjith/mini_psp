@@ -1,7 +1,7 @@
 # FOR TESTING
-import sys
-sys.path.append("..")
-sys.path.append("../miniPSP")
+# import sys
+# sys.path.append("..")
+# sys.path.append("../miniPSP")
 
 from miniPSP.patch_generator import generate
 
@@ -40,7 +40,7 @@ def test_patch():
 
     generate(args)
 ################################################################################
-
-if __name__ == '__main__':
-
-    test_patch()
+# 
+# if __name__ == '__main__':
+#
+#     test_patch()
