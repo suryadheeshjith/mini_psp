@@ -2,6 +2,7 @@
 /src/miniPSP/Data/Bands/*.tif
 /src/miniPSP/Data/Targets/*.tif
 /src/miniPSP/Data/*.npy
+/src/miniPSP/Data/*.tif
 /src/miniPSP/Data/*.txt
 /src/miniPSP/logs
 /src/miniPSP/Model_test
@@ -12,6 +13,7 @@
 /src/miniPSP/a.py
 /src/miniPSP/Data/Temp
 /src/miniPSP/utils/*.npy
+/src/miniPSP.egg-info
 .vscode
 test/__pycache__
 test/unit/__pycache__
