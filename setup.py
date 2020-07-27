@@ -21,7 +21,7 @@ setup(name="mini_psp",
             "tensorflow==1.15.2",
             "logger==1.4"],
         extras_require={
-
+            "testing": ["pytest"]
       }
 
 )
