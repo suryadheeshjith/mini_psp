@@ -13,5 +13,5 @@
 /miniPSP/Data/Temp
 /miniPSP/utils/*.npy
 .vscode
-/miniPSP/test/__pycache__
-/miniPSP/test/unit/__pycache__
+test/__pycache__
+test/unit/__pycache__
