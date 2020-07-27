@@ -2,10 +2,6 @@ language: python
 python:
   - "3.6.10"      # current default Python on Travis CI
 # command to install dependencies
-os:
-  - windows
-  - linux
-  - osx
 before_install:
   - python --version
   - pip install -U pip
