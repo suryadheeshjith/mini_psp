@@ -52,7 +52,7 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
 
     **OS X/Linux**  
 
-    Use any of these options
+    Use any of the two options
 
     *  ```pip install .```
 
@@ -60,10 +60,12 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
 
     **Windows**
 
-    For Windows, We recommend using conda to first install rasterio then to run the above command. So, in other words, run this  
+    For Windows, We recommend using conda to first install rasterio then to run the above command. So, in other words, run these commands  
 
-    1. ```conda install -c conda-forge rasterio```  
-    2. ```python setup.py install```
+     ```
+     conda install -c conda-forge rasterio  
+     python setup.py install
+     ```
 
 
 #### Repository Structure
@@ -228,4 +230,4 @@ Then, to generate the masks
 2. A. Suryanarayanan
 3. Shyam A.
 
-###### Last updated : 17 July 2020
+###### Last updated : 28 July 2020
