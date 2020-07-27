@@ -1,0 +1,15 @@
+2020-07-27 18:51:51,028 - INFO - Command Details : 
+2020-07-27 18:51:51,028 - INFO - {
+    "tdim": 256,
+    "input_fol": "Data",
+    "output_fol": "Data",
+    "thresh": 8,
+    "percentage_ones": 0.25,
+    "strides": 128,
+    "train_test": true,
+    "save_details": true
+}
+2020-07-27 18:51:51,029 - INFO - File not considered : .DS_Store in Data/Bands
+2020-07-27 18:51:51,029 - INFO - Band Files : ['Data/Bands/sample_B2.tif', 'Data/Bands/sample_B3.tif']
+2020-07-27 18:51:51,029 - INFO - File not considered : .DS_Store in Data/Targets
+2020-07-27 18:51:51,029 - INFO - Target Files : ['Data/Targets/sample_M1.tif', 'Data/Targets/sample_M2.tif']
