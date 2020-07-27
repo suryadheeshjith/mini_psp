@@ -50,8 +50,20 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
 
 4. Install the required packages
 
-    ```python3 setup.py install```
+    **OS X/Linux**  
 
+    Use any of these options
+
+    *  ```pip install .```
+
+    *  ```python setup.py install```
+
+    **Windows**
+
+    For Windows, We recommend using conda to first install rasterio then to run the above command. So, in other words, run this  
+
+    1. ```conda install -c conda-forge rasterio```  
+    2. ```python setup.py install```
 
 
 #### Repository Structure
