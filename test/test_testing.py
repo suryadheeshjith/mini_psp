@@ -1,7 +1,7 @@
 ## FOR TESTING
-import sys
-sys.path.append("..")
-sys.path.append("../miniPSP")
+# import sys
+# sys.path.append("..")
+# sys.path.append("../miniPSP")
 
 from miniPSP.test import test
 from miniPSP.utils.data_utils import round_outputs

@@ -1,7 +1,7 @@
 # FOR TESTING
-import sys
-sys.path.append("..")
-sys.path.append("../miniPSP")
+# import sys
+# sys.path.append("..")
+# sys.path.append("../miniPSP")
 
 from miniPSP.patch_generator import generate
 from miniPSP.utils.data_utils import save_npy
