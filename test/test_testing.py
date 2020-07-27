@@ -4,6 +4,13 @@ sys.path.append("..")
 sys.path.append("../miniPSP")
 
 from miniPSP.test import test
+from miniPSP.utils.data_utils import round_outputs
+from miniPSP.utils.model_utils import get_json
+from miniPSP.utils.logger_utils import get_logger
+from miniPSP.utils.metric_utils import conf_matrix
+from miniPSP.utils.plot_utils import plot_confusion_matrix
+from miniPSP.utils.store_utils import log_eval
+from miniPSP.utils.tiling_utils import save_masks
 import os.path as osp
 
 ################################################################################
