@@ -8,8 +8,8 @@ before_install:
   - pip install -U pytest
   - pip install codecov
 install:
-  - python3 setup.py install
+  - pip install ".[testing]"
 # command to run tests
-script: pytest
+script: pytest --cov=./
 after_success:
   - codecov # submit coverage
