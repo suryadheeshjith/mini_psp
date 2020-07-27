@@ -98,17 +98,40 @@ def save_masks(save_path, y_pred, n_classes):
 
     # A sample file used to provide various information to the predicted mask during save.
     sample_path = None
-    sam_path = 'Data/Targets'
-    for i in os.listdir(sam_path):
-        if(i.endswith("tif")):
-            sample_path = osp.join(sam_path,i)
-            break
-    if(not sample_path):
-        sam_path = 'Data/Bands'
-        for i in os.listdir(sam_path):
+
+    # Kinda hacky here
+    common_user1 = osp.join('Data','Targets')
+    common_user2 = osp.join('Data','Bands')
+    common_test1 = osp.join('test','Data','Targets')
+    common_test2 = osp.join('test','Data','Bands')
+
+    user = 2
+    if(os.path.isdir(common_user1)):
+        user = 1
+    else
+        user =0
+
+    if(user==1):
+        for i in os.listdir(common_user1):
             if(i.endswith("tif")):
-                sample_path = osp.join(sam_path,i)
+                sample_path = osp.join(common_user1,i)
                 break
+        if(not sample_path):
+            for i in os.listdir(common_user2):
+                if(i.endswith("tif")):
+                    sample_path = osp.join(common_user2,i)
+                    break
+    elif(user==0):
+        for i in os.listdir(common_test1):
+            if(i.endswith("tif")):
+                sample_path = osp.join(common_test1,i)
+                break
+        if(not sample_path):
+            for i in os.listdir(common_test2):
+                if(i.endswith("tif")):
+                    sample_path = osp.join(common_test2,i)
+                    break
+
     if(not sample_path):
         print("No valid reference path!")
         exit(0)
