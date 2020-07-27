@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: miniPSP
+Version: 1.0.0
+Summary: Mini-PSPNet for Urban Land-Use/Land-Cover Classification of Remote Sensing images
+Home-page: https://github.com/suryadheeshjith/ISRO_Repo
+Author: Surya Dheeshjith
+Author-email: Surya.Dheeshjith@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: any
+Provides-Extra: testing
