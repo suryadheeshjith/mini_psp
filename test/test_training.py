@@ -1,7 +1,9 @@
 # # FOR TESTING
-# import sys
-# sys.path.append("..")
-# sys.path.append("../miniPSP")
+import sys
+sys.path.append("..")
+sys.path.append("../miniPSP")
+sys.path.append("../miniPSP/utils")
+sys.path.append("../miniPSP/models")
 
 from miniPSP.utils.logger_utils import get_logger
 from miniPSP.utils.plot_utils import plot_history

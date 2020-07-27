@@ -1,7 +1,9 @@
 ## FOR TESTING
-# import sys
-# sys.path.append("..")
-# sys.path.append("../miniPSP")
+import sys
+sys.path.append("..")
+sys.path.append("../miniPSP")
+sys.path.append("../miniPSP/utils")
+sys.path.append("../miniPSP/models")
 
 from miniPSP.utils.data_utils import round_outputs
 from miniPSP.utils.model_utils import get_json
