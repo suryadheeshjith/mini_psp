@@ -13,8 +13,8 @@ from miniPSP.patch_generator import generate
 # DEFAULTS
 ################################################################################
 tdim = 256
-input_fol = 'Data'
-output_fol  = 'Data'
+input_fol = '/Data'
+output_fol  = '/Data'
 thresh = 8
 percentage_ones  =0.25
 strides = 128
