@@ -8,7 +8,7 @@ setup(name="miniPSP",
       author_email='Surya.Dheeshjith@gmail.com',
       platforms=["any"],
       url="https://github.com/suryadheeshjith/ISRO_Repo",
-      packages=find_packages("miniPSP"),
+      packages=find_packages(exclude=["figures"]),
       install_requires=[
             "numpy==1.18.1",
             "argparse",
