@@ -107,17 +107,18 @@ The Data folder contains the Bands and the Targets folders. The Bands folder sho
 
 ### Running Model
 
-Once all the files are in place, we crop our images into patches and then perform training and testing. So first off, change directories to the /miniPSP directory.
+Once all the files are in place, we crop our images into patches and then perform training and testing. So first off, change directories to the miniPSP directory.
 
-```cd src```
-
-```cd miniPSP```
+```
+cd src
+cd miniPSP
+```
 
 
 
 ### Patch Generation
 
-To generate patches, we run the [patch_generator.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/patch_generator.py) file. This file is used to generate patches from the Satellite images and Target Masks. An input directory that contains all these files is accepted as input and each file is parsed and patches are generated for training the model. All the files must be in .tif format. The input directory must contain two folders Bands and Targets, and each must contain the Satellite image bands and Target Masks. For example, you could call your directory 'Data' and it must have a directory structure like this -
+To generate patches, we run the [patch_generator.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/src/miniPSP/patch_generator.py) file. This file is used to generate patches from the Satellite images and Target Masks. An input directory that contains all these files is accepted as input and each file is parsed and patches are generated for training the model. All the files must be in .tif format. The input directory must contain two folders Bands and Targets, and each must contain the Satellite image bands and Target Masks. For example, you could call your directory 'Data' and it must have a directory structure like this -
 
     ├── miniPSP
     │   ├── Data
@@ -149,7 +150,7 @@ An example command would be
 
 ### Model Training
 
-Training the model will save a JSON file, a best weights and final weights file. Training is done by the [train.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/train.py) file. This file is used to train the model on the data given as input and saves the JSON and weights files in the directory provided by 'Model path'. There is also provision to set the number of epochs and batch size in the command line.
+Training the model will save a JSON file, a best weights and final weights file. Training is done by the [train.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/src/miniPSP/train.py) file. This file is used to train the model on the data given as input and saves the JSON and weights files in the directory provided by 'Model path'. There is also provision to set the number of epochs and batch size in the command line.
 
 
 INPUT (Command line Arguments):
@@ -174,7 +175,7 @@ An example command would be
 
 ### Model Testing
 
-Testing is done by the [test.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/miniPSP/test.py) file. This file is used to test the model on the data given as input based on the JSON and weights files saved during training. The output is based on command line arguments given by the user. For evaluation, Accuracy, IoU and F1-score is logged for each class with their means. The confusion matrix and the output masks can also be saved.
+Testing is done by the [test.py](https://github.com/suryadheeshjith/ISRO_Repo/blob/master/src/miniPSP/test.py) file. This file is used to test the model on the data given as input based on the JSON and weights files saved during training. The output is based on command line arguments given by the user. For evaluation, Accuracy, IoU and F1-score is logged for each class with their means. The confusion matrix and the output masks can also be saved.
 
 
 INPUT (Command line Arguments):
