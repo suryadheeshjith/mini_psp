@@ -61,6 +61,9 @@ def get_model(model_name, input_shape, n_classes):
 
     '''Selects the model based on model_name'''
 
+    # Logger
+    logger = get_logger()
+
     # PSP
     if(model_name.lower()=='psp'):
         logger.info("PSPNet model used")
@@ -95,6 +98,19 @@ def train(args):
 
     '''Train function'''
 
+
+    model_list = ['unet','fcn','psp']
+
+    # Logger
+    logger = get_logger()
+
+
+    # Checks
+    assert args.mname in model_list
+    if not osp.exists(args.mpath):
+        os.makedirs(args.mpath)
+
+
     input_npy = args.input_npy
     output_npy = args.output_npy
     model_path = args.mpath
@@ -115,6 +131,7 @@ def train(args):
 
     # Train test split
     if(args.train_test):
+        logger.info("Splitting data into train test sets.")
         dataset[0], dataset[1] = shuffle(dataset[0],dataset[1],random_state=42)
         X_train, X_test, y_train, y_test = train_test_split(dataset[0], dataset[1], test_size=0.2, random_state=42)
         dataset[0] = X_train
@@ -146,18 +163,7 @@ def train(args):
 
 if __name__ == '__main__':
 
-    model_list = ['unet','fcn','psp']
-
-    # Logger
-    logger = get_logger()
-
     # Parse Args
     args = parse_args()
-
-
-    assert args.mname in model_list
-
-    if not osp.exists(args.mpath):
-        os.makedirs(args.mpath)
 
     train(args)

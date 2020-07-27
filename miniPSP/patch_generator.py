@@ -56,15 +56,12 @@ def parse_args():
     return args
 
 
-def generate():
+def generate(args):
 
     '''Generates Patches'''
 
     # Logger
     logger = get_logger()
-
-    # Parse Args
-    args = parse_args()
 
     logger.info("Command Details : ")
     logger.info(json.dumps(vars(args), indent=4))
@@ -74,4 +71,8 @@ def generate():
 
 
 if __name__ == '__main__':
-    generate()
+
+    # Parse Args
+    args = parse_args()
+
+    generate(args)

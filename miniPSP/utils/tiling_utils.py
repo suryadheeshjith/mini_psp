@@ -92,7 +92,7 @@ def write_single_patch(data, out_file: str, height, width, crs, transform, windo
         pass
 
 
-def save_masks(save_path, y_pred):
+def save_masks(save_path, y_pred, n_classes):
 
     '''Saving output prediction masks.'''
 
@@ -121,7 +121,7 @@ def save_masks(save_path, y_pred):
 
     patches_per_row = input_height // y_pred.shape[1]
 
-    for i in range(5):
+    for i in range(n_classes):
         out = osp.join(save_path,'predicted_band{}.tif'.format(i+1))
         for j in range(0, len(y_pred)):
             write_single_patch(y_pred[j,:,:,i], out, input_height, input_width, input_crs, input_transform,j % patches_per_row, j // patches_per_row)

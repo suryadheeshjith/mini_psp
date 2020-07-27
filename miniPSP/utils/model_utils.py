@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model,model_from_json
 def conv_block(X,filters,block):
 
     '''A conv block'''
-    
+
     b = 'block_'+str(block)+'_'
     f1,f2,f3 = filters
     X_skip = X
@@ -79,7 +79,7 @@ def psp_net_helper(input_layer,n_classes):
     X = BatchNormalization(name='last_conv_5_by_5_batch_norm')(X)
     X = Activation('softmax',name='last_conv_relu')(X)
     X = Reshape(
-            (X.shape[1]*X.shape[2], 5),
+            (X.shape[1]*X.shape[2], n_classes),
             input_shape=(X.shape[1], X.shape[2], 5))(X)
     return X
 

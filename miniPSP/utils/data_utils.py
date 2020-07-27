@@ -136,10 +136,10 @@ def save_npy(args):
         if(Output):
             Inputs, Output = shuffle(Inputs, Output,random_state=42)
             X_train, X_test, y_train, y_test = train_test_split(Inputs, Output, test_size=0.2, random_state=42)
-            np.save(osp.join(args.output_fol,'input8_train.npy',X_train))
-            np.save(osp.join(args.output_fol,'output8_train.npy',y_train))
-            np.save(osp.join(args.output_fol,'input8_test.npy',X_test))
-            np.save(osp.join(args.output_fol,'output8_test.npy',y_test))
+            np.save(osp.join(args.output_fol,'input8_train.npy'),X_train)
+            np.save(osp.join(args.output_fol,'output8_train.npy'),y_train)
+            np.save(osp.join(args.output_fol,'input8_test.npy'),X_test)
+            np.save(osp.join(args.output_fol,'output8_test.npy'),y_test)
         else:
             logger.info("No target files for train test save! Please add relevant files.")
             exit("0")
@@ -158,21 +158,21 @@ def save_npy(args):
 
 
 
-def round_outputs(y_pred):
+def round_outputs(y_pred, n_classes):
 
     '''Rounding is done across bands. The class with the most likelihood is given a value of 1 and the rest 0.'''
 
-    y_pred = np.reshape(y_pred,(-1,5))
+    y_pred = np.reshape(y_pred,(-1,n_classes))
     for i in range(y_pred.shape[0]):
         tem = y_pred[i]
         best=0
         idx=-1
-        for j in range(5):
+        for j in range(n_classes):
             if(tem[j]>best):
                 best = tem[j]
                 idx=j
 
-        y_pred[i] = [0]*5
+        y_pred[i] = [0]*n_classes
         y_pred[i][idx] = 1
-    y_pred = np.reshape(y_pred,(-1,256,256,5))
+    y_pred = np.reshape(y_pred,(-1,256,256,n_classes))
     return y_pred

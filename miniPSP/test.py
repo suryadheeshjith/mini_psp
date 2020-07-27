@@ -67,6 +67,17 @@ def test(args, class_names):
 
     '''Test function'''
 
+
+    # Logger
+    logger = get_logger()
+
+    # Checks
+    if not osp.exists(args.mjpath):
+        logger.info("Enter valid model json path")
+
+    if not osp.exists(args.mwpath):
+        logger.info("Enter valid model weights path")
+
     input_npy = args.input_npy
     output_npy = args.output_npy
     save_json_path = args.mjpath
@@ -96,6 +107,7 @@ def test(args, class_names):
 
     if(args.train_test):
         if(output_npy):
+            logger.info("Splitting data into train test sets.")
             X_test, y_test = shuffle(X_test,y_test,random_state=42)
             X_train, X_test, y_train, y_test = train_test_split(X_test, y_test, test_size=0.2, random_state=42)
         else:
@@ -105,28 +117,28 @@ def test(args, class_names):
     # Predict
     y_pred = model.predict(X_test)
 
+    n_classes = len(class_names)
 
     # Reshape
-    y_pred = np.reshape(y_pred,(-1,256,256,5))
+    y_pred = np.reshape(y_pred,(-1,256,256,n_classes))
     if(output_npy):
-        y_test = np.reshape(y_test,(-1,256,256,5))
+        y_test = np.reshape(y_test,(-1,256,256,n_classes))
 
     # Obtain most likely class for each pixel and set to value 1
-    y_pred = round_outputs(y_pred)
+    y_pred = round_outputs(y_pred,n_classes)
 
     #np.round(y_pred)
 
     # Evaluate model
     if(args.eval):
         logger.info("\nLogging evaluated metrics")
-        n_classes = len(class_names)
         cm = conf_matrix(y_test,y_pred,n_classes)
         log_eval(y_test,y_pred,n_classes,cm)
 
     # Save masks
     if(args.save_masks):
         logger.info("Saving masks to {}".format(osp.abspath(osp.dirname(input_npy))))
-        save_masks(osp.dirname(input_npy), y_pred)
+        save_masks(osp.dirname(input_npy), y_pred, n_classes)
 
     # Confusion matrix
     if(args.plot_conf):
@@ -138,18 +150,7 @@ if __name__ == '__main__':
     # Class names (Can be changed by User)
     class_names = ['Veg','Built-up','Open land','Roads','Waterbodies']
 
-
-    # Logger
-    logger = get_logger()
-
     # Parse Args
     args = parse_args()
-
-
-    if not osp.exists(args.mjpath):
-        print("Enter valid model json path")
-
-    if not osp.exists(args.mwpath):
-        print("Enter valid model weights path")
 
     test(args, class_names)
