@@ -1,0 +1,8 @@
+include README.md
+recursive-exclude figures *.PNG
+recursive-exclude figures *.png
+recursive-exclude test *.tif
+recursive-exclude test *.npy
+recursive-exclude test *.json
+recursive-exclude test *.h5
+recursive-exclude test *.py
