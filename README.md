@@ -57,36 +57,59 @@ Apart from the PSPNet model, UNET and FCN models have also been implemented.
 #### Repository Structure
 
     .
+    ├── MANIFEST.in
     ├── README.md
     ├── figures
-    ├── miniPSP
-    │   ├── Data
-    │   │   ├── Bands
-    │   │   └── Targets
-    │   ├── models
-    │   │   ├── __init__.py
-    │   │   └── models.py
-    │   ├── patch_generator.py
-    │   ├── test.py
-    │   ├── train.py
-    │   └── utils
-    │       ├── __init__.py
-    │       ├── data_utils.py
-    │       ├── logger_utils.py
-    │       ├── metric_utils.py
-    │       ├── model_utils.py
-    │       ├── plot_utils.py
-    │       ├── store_utils.py
-    │       └── tiling_utils.py
     ├── requirements.txt
-    └── setup.py
-
+    ├── setup.cfg
+    ├── setup.py
+    ├── src
+    │   └── miniPSP
+    │       ├── Data
+    │       │   ├── Bands
+    │       │   └── Targets
+    │       ├── __init__.py
+    │       ├── models
+    │       │   ├── __init__.py
+    │       │   └── models.py
+    │       ├── patch_generator.py
+    │       ├── test.py
+    │       ├── train.py
+    │       └── utils
+    │           ├── __init__.py
+    │           ├── data_utils.py
+    │           ├── logger_utils.py
+    │           ├── metric_utils.py
+    │           ├── model_utils.py
+    │           ├── plot_utils.py
+    │           ├── store_utils.py
+    │           └── tiling_utils.py
+    └── test
+        ├── Data
+        │   ├── Bands
+        │   │   ├── sample_B2.tif
+        │   │   └── sample_B3.tif
+        │   ├── Targets
+        │   │   ├── sample_M1.tif
+        │   │   └── sample_M2.tif
+        │   ├── sample_input.npy
+        │   ├── sample_model.json
+        │   ├── sample_model_final_weights.h5
+        │   └── sample_output.npy
+        ├── __init__.py
+        ├── test_patching.py
+        ├── test_testing.py
+        ├── test_training.py
+        └── unit
+            └── __init__.py
 
 The Data folder contains the Bands and the Targets folders. The Bands folder should contain the satellite image tiff files and the Targets should contain the target masks for each class.
 
 ### Running Model
 
 Once all the files are in place, we crop our images into patches and then perform training and testing. So first off, change directories to the /miniPSP directory.
+
+```cd src```
 
 ```cd miniPSP```
 
