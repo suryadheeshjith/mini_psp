@@ -4,7 +4,7 @@ as input and each file is parsed and patches are generated for training the mode
 must contain two folders Bands and Targets, and each must contain the Satellite image bands and Target Masks. For example, you could call your directory
 'Data' and it must have a directory structure like this -
 
-├── miniPSP
+├── mini_psp
 │   ├── Data
 │   │   ├── Bands
 │___│___├── Targets
@@ -37,8 +37,8 @@ from __future__ import print_function
 import argparse
 import json
 
-from miniPSP.utils.data_utils import save_npy
-from miniPSP.utils.logger_utils import get_logger
+from mini_psp.utils.data_utils import save_npy
+from mini_psp.utils.logger_utils import get_logger
 
 
 def parse_args():

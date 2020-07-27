@@ -1,11 +1,11 @@
 # FOR TESTING
 # import sys
 # sys.path.append("..")
-# sys.path.append("../miniPSP")
+# sys.path.append("../mini_psp")
 
-from miniPSP.utils.data_utils import save_npy
-from miniPSP.utils.logger_utils import get_logger
-from miniPSP.patch_generator import generate
+from mini_psp.utils.data_utils import save_npy
+from mini_psp.utils.logger_utils import get_logger
+from mini_psp.patch_generator import generate
 
 
 

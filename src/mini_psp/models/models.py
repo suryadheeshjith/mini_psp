@@ -3,7 +3,7 @@ from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras import Model
 
-from miniPSP.utils.model_utils import psp_net_helper, crop
+from mini_psp.utils.model_utils import psp_net_helper, crop
 
 
 def psp_net(input_shape = (256, 256, 4), n_classes = 5, optimizer = 'adam', loss = 'categorical_crossentropy'):

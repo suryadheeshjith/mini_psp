@@ -1,14 +1,14 @@
 # # FOR TESTING
 # import sys
 # sys.path.append("..")
-# sys.path.append("../miniPSP")
+# sys.path.append("../mini_psp")
 
 
-from miniPSP.utils.logger_utils import get_logger
-from miniPSP.utils.plot_utils import plot_history
-from miniPSP.utils.store_utils import get_summary_string, save_model
-from miniPSP.models.models import psp_net, unet, fcn
-from miniPSP.train import train
+from mini_psp.utils.logger_utils import get_logger
+from mini_psp.utils.plot_utils import plot_history
+from mini_psp.utils.store_utils import get_summary_string, save_model
+from mini_psp.models.models import psp_net, unet, fcn
+from mini_psp.train import train
 import os.path as osp
 
 

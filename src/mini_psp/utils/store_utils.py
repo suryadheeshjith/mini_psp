@@ -2,8 +2,8 @@ import os.path as osp
 from io import StringIO
 import numpy as np
 
-from miniPSP.utils.metric_utils import evaluate, eval_conf_matrix
-from miniPSP.utils.logger_utils import get_logger
+from mini_psp.utils.metric_utils import evaluate, eval_conf_matrix
+from mini_psp.utils.logger_utils import get_logger
 
 
 def save_details(args,Inputs,Output):

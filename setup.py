@@ -1,14 +1,14 @@
 from setuptools import find_packages, setup
 
 
-setup(name="miniPSP",
+setup(name="mini_psp",
       version="1.0.0",
       description="Mini-PSPNet for Urban Land-Use/Land-Cover Classification of Remote Sensing images",
       author="Surya Dheeshjith",
       author_email='Surya.Dheeshjith@gmail.com',
       platforms=["any"],
-      url="https://github.com/suryadheeshjith/ISRO_Repo",
-      packages=["miniPSP", "miniPSP.models", "miniPSP.utils"],
+      url="https://github.com/suryadheeshjith/mini_psp",
+      packages=["mini_psp", "mini_psp.models", "mini_psp.utils"],
       package_dir={"": "src"},
       install_requires=[
             "numpy==1.18.1",
