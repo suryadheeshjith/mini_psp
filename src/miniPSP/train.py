@@ -36,10 +36,10 @@ from sklearn.utils import shuffle
 import os
 import os.path as osp
 
-from utils.logger_utils import get_logger
-from utils.plot_utils import plot_history
-from utils.store_utils import get_summary_string, save_model
-from models.models import psp_net, unet, fcn
+from miniPSP.utils.logger_utils import get_logger
+from miniPSP.utils.plot_utils import plot_history
+from miniPSP.utils.store_utils import get_summary_string, save_model
+from miniPSP.models.models import psp_net, unet, fcn
 
 
 def parse_args():

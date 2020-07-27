@@ -37,13 +37,13 @@ import os.path as osp
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 
-from utils.data_utils import round_outputs
-from utils.model_utils import get_json
-from utils.logger_utils import get_logger
-from utils.metric_utils import conf_matrix
-from utils.plot_utils import plot_confusion_matrix
-from utils.store_utils import log_eval
-from utils.tiling_utils import save_masks
+from miniPSP.utils.data_utils import round_outputs
+from miniPSP.utils.model_utils import get_json
+from miniPSP.utils.logger_utils import get_logger
+from miniPSP.utils.metric_utils import conf_matrix
+from miniPSP.utils.plot_utils import plot_confusion_matrix
+from miniPSP.utils.store_utils import log_eval
+from miniPSP.utils.tiling_utils import save_masks
 
 
 def parse_args():
@@ -63,7 +63,7 @@ def parse_args():
 
 
 
-def test(args, class_names):
+def evaluater(args, class_names):
 
     '''Test function'''
 
@@ -153,4 +153,4 @@ if __name__ == '__main__':
     # Parse Args
     args = parse_args()
 
-    test(args, class_names)
+    evaluater(args, class_names)

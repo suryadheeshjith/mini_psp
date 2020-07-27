@@ -11,29 +11,6 @@ def get_iou(target,prediction):
     iou_score = np.sum(intersection) / np.sum(union)
     return iou_score
 
-# def get_mean_accuracy(target,prediction):
-#
-#     '''Returns mean accuracy.'''
-#
-#     return np.mean(target==prediction)
-#
-# def get_class_accuracies(target,prediction,n_classes):
-#
-#     '''Returns class accuracies.'''
-#
-#     assert len(target.shape)==4
-#     assert len(prediction.shape)==4
-#
-#
-#     sum =0
-#     acc = {}
-#     for i in range(n_classes):
-#         cur_acc = np.mean(prediction[:,:,:,i]==target[:,:,:,i])
-#         sum+=cur_acc
-#         acc[i+1] = cur_acc
-#     acc['mean'] = sum/n_classes
-#     return acc
-
 
 def get_class_iou(target,prediction,n_classes):
 

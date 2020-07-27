@@ -5,9 +5,9 @@ import os.path as osp
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 
-from .store_utils import save_details
-from .tiling_utils import create_patches, select_patches
-from utils.logger_utils import get_logger
+from miniPSP.utils.store_utils import save_details
+from miniPSP.utils.tiling_utils import create_patches, select_patches
+from miniPSP.utils.logger_utils import get_logger
 
 
 def normalise_inputs(Inputs):

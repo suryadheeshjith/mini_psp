@@ -11,7 +11,7 @@ from miniPSP.utils.metric_utils import conf_matrix
 from miniPSP.utils.plot_utils import plot_confusion_matrix
 from miniPSP.utils.store_utils import log_eval
 from miniPSP.utils.tiling_utils import save_masks
-from miniPSP.test import test
+from miniPSP.test import evaluater
 import os.path as osp
 
 ################################################################################
@@ -52,7 +52,7 @@ def test_test():
     args = _test_args_helper_(input_npy=Input_npy_file_path, output_npy=Output_npy_file_path, mjpath=json_file_path,
                         mwpath=weights_file_path, mname=model_name, train_test=train_test, eval=eval, plot_conf=plot,
                         save_masks=save)
-    test(args, class_names)
+    evaluater(args, class_names)
 
 ################################################################################
 

@@ -37,8 +37,8 @@ from __future__ import print_function
 import argparse
 import json
 
-from utils.data_utils import save_npy
-from utils.logger_utils import get_logger
+from miniPSP.utils.data_utils import save_npy
+from miniPSP.utils.logger_utils import get_logger
 
 
 def parse_args():
