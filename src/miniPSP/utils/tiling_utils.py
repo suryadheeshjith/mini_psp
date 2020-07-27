@@ -108,7 +108,7 @@ def save_masks(save_path, y_pred, n_classes):
     user = 2
     if(os.path.isdir(common_user1)):
         user = 1
-    else
+    else:
         user =0
 
     if(user==1):
