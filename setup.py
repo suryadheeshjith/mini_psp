@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 
-setup(name="mini_psp",
+setup(name="miniPSP",
       version="1.0.0",
       description="Mini-PSPNet for Urban Land-Use/Land-Cover Classification of Remote Sensing images",
       author="Surya Dheeshjith",
