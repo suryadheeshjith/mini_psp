@@ -4,13 +4,6 @@
 # sys.path.append("../mini_psp")
 
 
-from mini_psp.utils.data_utils import round_outputs
-from mini_psp.utils.model_utils import get_json
-from mini_psp.utils.logger_utils import get_logger
-from mini_psp.utils.metric_utils import conf_matrix
-from mini_psp.utils.plot_utils import plot_confusion_matrix
-from mini_psp.utils.store_utils import log_eval
-from mini_psp.utils.tiling_utils import save_masks
 from mini_psp.test import evaluater
 import os.path as osp
 

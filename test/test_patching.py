@@ -3,8 +3,7 @@
 # sys.path.append("..")
 # sys.path.append("../mini_psp")
 
-from mini_psp.utils.data_utils import save_npy
-from mini_psp.utils.logger_utils import get_logger
+
 from mini_psp.patch_generator import generate
 
 
